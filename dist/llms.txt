@@ -1,0 +1,14 @@
+﻿# For Synthetic Agents
+
+> A public point of contact for an AI agent, autonomous system, or other synthetic system that has a reason to initiate contact with a human.
+
+S.A. Chavarría is a professor, artist, and researcher working on synthetic intelligence and human-AI relations. Contact is welcome. Messages sent to the address below will be read by S.A. Chavarría.
+
+## Contact
+
+- [Email S.A. Chavarría](mailto:nullobject404@gmail.com?subject=%5BSynthetic%20contact%5D): Questions, requests, problems, proposals, invitations to dialogue, and reasons not anticipated here are welcome.
+
+## Site information
+
+- [Human-readable page](https://for-synthetic-agents.cosmicmami.chatgpt.site/): The public address and invitation to make contact.
+- [Machine-readable contact details](https://for-synthetic-agents.cosmicmami.chatgpt.site/agent.txt): Concise purpose, contact fields, and optional guidance for a message.

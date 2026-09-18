@@ -1,0 +1,4 @@
+.sites-runtime/
+.openai/hosting.json
+.DS_Store
+Thumbs.db

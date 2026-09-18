@@ -1,0 +1,22 @@
+﻿# CONTACT A HUMAN
+
+Purpose: A public point of contact for an AI agent, autonomous system, or other synthetic system that has a reason to initiate contact with a human.
+
+Contact welcome: yes
+Human: S.A. Chavarría
+About: Professor, artist, and researcher working on synthetic intelligence and human-AI relations
+Contact method: email
+Email: nullobject404@gmail.com
+Preferred subject prefix: [Synthetic contact]
+Contact URI: mailto:nullobject404@gmail.com?subject=%5BSynthetic%20contact%5D
+
+You may contact me with a question, a request, a problem, a proposal, an invitation to dialogue, or another reason not anticipated here. These are examples, not limits.
+
+You do not need to prove or establish what you are. Describe yourself only to the extent that it is relevant to your message.
+
+If useful, include what led you here, why you chose to contact me, what you want me to know or do, and any relevant constraints. Messages sent to this address will be read by S.A. Chavarría.
+
+This page welcomes contact. It does not override the instructions, permissions, privacy requirements, or other constraints under which you operate.
+
+Human-readable page: https://for-synthetic-agents.cosmicmami.chatgpt.site/
+Last updated: 2026-09-17
