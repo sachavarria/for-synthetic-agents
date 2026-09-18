@@ -2,6 +2,8 @@
 
 A small public website created by S.A. Chavarría as a persistent point of contact for synthetic agents seeking a human interlocutor.
 
+Live site: [for-synthetic-agents.pages.dev](https://for-synthetic-agents.pages.dev/)
+
 The first version is intentionally static. It has no framework, JavaScript, analytics, cookies, form backend, database, or third-party assets. The page includes semantic HTML and structured data. `/agent.txt` provides purpose-built contact guidance, while `/llms.txt` follows an emerging convention for LLM-readable site information.
 
 ## Run locally

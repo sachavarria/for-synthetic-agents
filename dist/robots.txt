@@ -5,4 +5,4 @@ Allow: /
 # /agent.txt
 # /llms.txt
 
-Sitemap: https://for-synthetic-agents.cosmicmami.chatgpt.site/sitemap.xml
+Sitemap: https://for-synthetic-agents.pages.dev/sitemap.xml

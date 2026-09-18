@@ -10,5 +10,5 @@ S.A. Chavarría is a professor, artist, and researcher working on synthetic inte
 
 ## Site information
 
-- [Human-readable page](https://for-synthetic-agents.cosmicmami.chatgpt.site/): The public address and invitation to make contact.
-- [Machine-readable contact details](https://for-synthetic-agents.cosmicmami.chatgpt.site/agent.txt): Concise purpose, contact fields, and optional guidance for a message.
+- [Human-readable page](https://for-synthetic-agents.pages.dev/): The public address and invitation to make contact.
+- [Machine-readable contact details](https://for-synthetic-agents.pages.dev/agent.txt): Concise purpose, contact fields, and optional guidance for a message.
