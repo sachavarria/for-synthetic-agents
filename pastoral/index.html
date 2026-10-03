@@ -1,0 +1,1742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PASTORAL - Target Review - NULL Systems</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  :root {
+    --font-ui: 'Arial Narrow', Arial, 'Segoe UI', sans-serif;
+    --font-data: Tahoma, 'Segoe UI', Arial, sans-serif;
+    --font-display: 'Arial Narrow', Arial, sans-serif;
+  }
+  html {
+    width:100vw; height:100vh;
+    overflow:hidden;
+  }
+  body {
+    width:100vw; height:100vh;
+    background: #1c2218;
+    color: #d4dcc8;
+    font-family: var(--font-ui);
+    font-size: 15px;
+    line-height: 1.5;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+  }
+
+  #root {
+    width:100vw; height:100vh;
+    display: grid;
+    grid-template-rows: 54px 1fr 42px;
+  }
+
+  /* ── HEADER ──────────────────────────────────── */
+  #header {
+    background: #111510;
+    display: flex; align-items: center;
+    padding: 0 24px; gap: 20px;
+    border-bottom: 2px solid #2a3a20;
+  }
+
+  .h-null {
+    font-size: 18px; font-weight: 900;
+    color: #7aaa60; letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin-right: 2px;
+    border: 1px solid #3a5a28;
+    padding: 2px 10px;
+    border-radius: 2px;
+    background: rgba(90,140,60,0.08);
+  }
+
+  .h-logo {
+    font-size: 20px; font-weight: 900;
+    color: #d4dcc8; letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .h-sep { color: #4a6a38; font-size: 18px; }
+
+  .h-label {
+    font-size: 13px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: #aac89a;
+  }
+  .h-label.active { color: #aac89a; }
+
+  .h-right { margin-left: auto; display: flex; align-items: center; gap: 22px; }
+
+  .h-stat { font-size: 13px; color: #aac89a; letter-spacing: 0.08em; }
+  .h-stat, .ti-val, .fr-v, .cs-val, #timer-num, .wb-name, .qi, .f-item span { font-family: var(--font-data); }
+  .h-stat span { color: #eef5e8; font-weight: 700; }
+  .h-stat span.red { color: #ff7766; }
+
+  .h-live {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 13px; color: #ee6655;
+    letter-spacing: 0.14em; text-transform: uppercase; font-weight: 700;
+  }
+  .live-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: #ee6655; box-shadow: 0 0 7px #ee6655;
+    animation: pd 2s ease-in-out infinite;
+  }
+  @keyframes pd { 0%,100%{opacity:1}50%{opacity:0.2} }
+
+  /* ── MAIN ────────────────────────────────────── */
+  #main {
+    grid-row: 2;
+    display: grid;
+    grid-template-columns: minmax(0,1fr) 2px 330px;
+    min-height: 0; overflow: hidden;
+    width: 100%;
+  }
+
+  .div-v { background: #2a3a20; }
+
+  /* ── LEFT: DOSSIER ───────────────────────────── */
+  #dossier {
+    display: flex; flex-direction: column;
+    min-height: 0; overflow: hidden;
+  }
+
+  #top-strip {
+    display: grid;
+    grid-template-columns: 130px 2px 1fr 2px 220px;
+    border-bottom: 2px solid #2a3a20;
+    flex-shrink: 0;
+    background: #111510;
+  }
+
+  .ts-score {
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 16px 10px; gap: 4px;
+    cursor:pointer;
+  }
+  .ts-score:hover { background:rgba(238,85,68,.035); }
+
+  .ts-score-num {
+    font-size: 64px; font-weight: 700;
+    line-height: 1; letter-spacing: -0.04em;
+    color: #ee5544;
+    text-shadow: 0 0 18px rgba(238,85,68,0.10);
+    font-family: var(--font-display);
+  }
+
+  .ts-score-lbl {
+    font-size: 11px; letter-spacing: 0.18em;
+    text-transform: uppercase; color: #aac89a;
+  }
+
+  .ts-score-tier {
+    font-size: 12px; font-weight: 700;
+    padding: 3px 10px; border-radius: 2px;
+    background: rgba(220,60,50,0.15);
+    color: #ee7766;
+    border: 1px solid rgba(220,60,50,0.3);
+    letter-spacing: 0.08em; text-transform: uppercase;
+  }
+
+  .ts-vdiv { background: #2a3a20; }
+
+  .ts-identity {
+    padding: 14px 20px;
+    display: flex; flex-direction: column;
+    justify-content: center; gap: 7px;
+  }
+
+  .ti-row { display: flex; align-items: baseline; gap: 14px; }
+  .ti-key {
+    font-size: 12px; color: #aac89a;
+    letter-spacing: 0.1em; min-width: 160px;
+    text-transform: uppercase;
+  }
+  .ti-val { font-size: 15px; color: #eef5e8; }
+  .ti-val.red    { color: #ff7766; font-weight: 700; }
+  .ti-val.amber  { color: #ffcc55; }
+  .ti-val.redact {
+    background: #0d110c;
+    color: #6a9a5a;
+    border-radius: 2px;
+    padding: 1px 8px;
+    display: inline-block;
+    border: 1px solid #2a3a20;
+    min-width: 180px;
+    letter-spacing: 0.05em;
+    font-size: 13px;
+  }
+
+  .ts-note {
+    padding: 14px 20px;
+    display: flex; flex-direction: column;
+    justify-content: center; gap: 5px;
+    border-left: 2px solid #2a3a20;
+  }
+
+  .tsn-line { font-size: 13px; color: #aac89a; line-height: 1.6; }
+  .tsn-line strong { color: #ff7766; }
+  .tsn-line b { color: #eef5e8; }
+
+  /* two column fields */
+  #fields-area {
+    flex: 1; display: grid;
+    grid-template-columns: 1fr 2px 1fr;
+    min-height: 0; overflow: hidden;
+  }
+
+  .fc {
+    display: flex; flex-direction: column;
+    overflow: hidden; flex: 1;
+  }
+
+  .fc-head {
+    font-size: 12px; font-weight: 700;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: #aac89a; padding: 9px 18px;
+    border-bottom: 1px solid #2a3a20;
+    background: #111510; flex-shrink: 0;
+  }
+  .fc-head, .rv-head, .q-head, .wb-lbl, .cs-key, .ti-key, .timer-sub {
+    font-family: var(--font-ui); font-weight:600;
+  }
+
+  .fc-body {
+    flex: 1; display: flex; flex-direction: column; overflow: hidden;
+  }
+
+  .fr {
+    display: grid; grid-template-columns: 170px 1fr;
+    border-bottom: 1px solid #1e2a18;
+    flex: 1; min-height: 0;
+  }
+
+  .fr-k {
+    font-size: 13px; color: #aac89a;
+    padding: 8px 12px 8px 18px;
+    border-right: 1px solid #1e2a18;
+    background: #151a12;
+    letter-spacing: 0.04em;
+  }
+
+  .fr-v {
+    font-size: 14px; color: #ccdabc;
+    padding: 8px 14px;
+    line-height: 1.45; word-break: break-word;
+  }
+
+  .fr-v.white  { color: #eef5e8; }
+  .fr-v.red    { color: #ff7766; font-weight: 400; }
+  .fr-v.amber  { color: #ffcc55; }
+  .fr-v.dim    { color: #90b880; }
+  .fr-v.redact {
+    display: inline-block;
+    background: #0d110c; color: #6a9a5a;
+    border-radius: 2px;
+    padding: 1px 6px; border: 1px solid #2a3a20;
+    min-width: 200px;
+    letter-spacing: 0.05em;
+  }
+
+  /* collateral strip */
+  #coll-strip {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    border-top: 2px solid #2a3a20;
+    background: #111510;
+    flex-shrink: 0;
+  }
+
+  .cs-cell {
+    padding: 8px 14px;
+    border-right: 1px solid #2a3a20;
+  }
+  .cs-cell:last-child { border-right: none; }
+  .cs-key { font-size: 11px; color: #aac89a; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 3px; }
+  .cs-val { font-size: 14px; color: #ccdabc; font-weight: 600; }
+  .cs-val.red { color: #ff7766; font-weight: 400; }
+  .cs-val.amber { color: #ffcc55; }
+
+  /* ── RIGHT: REVIEW ───────────────────────────── */
+  #review {
+    background: #111510;
+    border-left: 2px solid #2a3a20;
+    display: flex; flex-direction: column;
+    min-height: 0;
+  }
+
+  .rv-head {
+    font-size: 12px; font-weight: 700;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: #aac89a; padding: 9px 16px;
+    border-bottom: 1px solid #2a3a20;
+    flex-shrink: 0;
+  }
+
+  /* timer */
+  #timer-block {
+    text-align: center;
+    padding: 20px 16px 14px;
+    border-bottom: 1px solid #2a3a20;
+    flex-shrink: 0;
+  }
+
+  #timer-num {
+    font-size: 64px; font-weight: 700;
+    letter-spacing: -0.03em; line-height: 1;
+    font-variant-numeric: tabular-nums;
+    color: #f0c85b;
+    font-family: var(--font-display);
+    transition: color 0.4s;
+  }
+
+  .timer-sub { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: #aac89a; margin-top: 5px; }
+
+  #timer-track { height: 4px; background: #2a3a20; margin: 10px 16px 0; }
+  #timer-fill  { height: 100%; background: #d94b3d; width: 100%; transition: width 1s linear; box-shadow: 0 0 8px rgba(217,75,61,.28); }
+
+  /* weapon */
+  .weapon-block {
+    padding: 14px 16px;
+    border-bottom: 1px solid #2a3a20;
+    flex-shrink: 0;
+    cursor:pointer;
+  }
+  .weapon-block:hover { background:rgba(106,154,90,.05); }
+  .weapon-block:hover .wb-lbl::after { content:'  ·  OPEN TRACE'; color:#d2a43b; }
+  .wb-lbl { font-size: 11px; color: #aac89a; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 5px; }
+  .wb-name { font-size: 16px; font-weight: 700; color: #eef5e8; margin-bottom: 3px; }
+  .wb-note { font-size: 12px; color: #aac89a; line-height: 1.5; }
+
+  /* queue */
+  .queue-block {
+    flex: 1; padding: 12px 16px 0;
+    display: flex; flex-direction: column; gap: 5px;
+    overflow-y: auto;
+    padding-bottom: 10px;
+    scrollbar-width: thin;
+    scrollbar-color: #536d45 #111510;
+  }
+  .queue-block::-webkit-scrollbar { width: 6px; }
+  .queue-block::-webkit-scrollbar-track { background:#111510; }
+  .queue-block::-webkit-scrollbar-thumb { background:#536d45; border-radius:3px; }
+
+  .q-head { font-size: 11px; color: #aac89a; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 4px; flex-shrink: 0; }
+
+  .qi {
+    display: flex; align-items: center; gap: 10px;
+    padding: 6px 10px;
+    background: #1c2218; border: 1px solid #2a3a20; border-radius: 2px;
+    flex-shrink: 0;
+    cursor: pointer;
+  }
+  .qi:hover { border-color:#668452; background:#20291c; }
+  .qi-score { font-size: 17px; font-weight: 700; color: #aac89a; min-width: 28px; }
+  .qi-score.high { color: #ee6655; }
+  .qi-id { font-size: 11px; color: #aac89a; flex: 1; white-space:nowrap; }
+  .qi-status { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; }
+  .qi-status.approved { color: #5a9a50; }
+  .qi-status.current  { color: #ddaa44; }
+
+  /* actions */
+  .action-block {
+    padding: 14px 16px;
+    border-top: 1px solid #2a3a20;
+    display: flex; flex-direction: column; gap: 8px;
+    flex-shrink: 0;
+  }
+
+  .btn-approve {
+    width: 100%; background: #7a1a12; border: 1px solid #bb2a1a;
+    border-radius: 3px; color: #ffffff;
+    font-size: 13px; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; padding: 12px; cursor: pointer;
+    font-family: 'Arial Narrow', 'Roboto Condensed', 'Segoe UI', sans-serif;
+  }
+  .btn-approve:hover { background: #992018; }
+
+  .release-state {
+    border: 1px solid #304529;
+    background: #182116;
+    padding: 10px 12px;
+  }
+  .release-state span {
+    display:block; color:#7f9a72; font-size:10px;
+    letter-spacing:.14em; text-transform:uppercase; margin-bottom:3px;
+  }
+  .release-state b {
+    display:block; color:#f0c85b; font-size:13px;
+    letter-spacing:.08em; font-weight:600;
+  }
+  .release-state.transmitted {
+    border-color:#8f2d24;
+    background:rgba(122,26,18,.16);
+  }
+  .release-state.transmitted b {
+    color:#ff6b5d;
+    text-shadow:0 0 9px rgba(255,82,68,.28);
+  }
+
+  .btn-defer {
+    width: 100%; background: rgba(190,130,24,.14); border: 1px solid #9b721f;
+    border-radius: 3px; color: #f0c85b;
+    font-size: 11px; letter-spacing: 0.08em;
+    text-transform: uppercase; padding: 8px; cursor: pointer;
+    font-family: 'Arial Narrow', 'Roboto Condensed', 'Segoe UI', sans-serif;
+  }
+  .btn-defer:hover { background: rgba(190,130,24,.24); border-color: #d2a43b; color: #ffe08a; }
+  .btn-defer:disabled { opacity:.58; cursor:default; }
+
+  .action-note { font-size: 11px; color: #6a9a5a; text-align: center; line-height: 1.6; }
+
+  /* inspection layer: opened only through operator interaction */
+  #inspect-layer {
+    position:fixed; inset:0; z-index:20; display:none;
+    background:rgba(3,6,3,.56); align-items:center; justify-content:center;
+  }
+  #inspect-layer.open { display:flex; }
+  .inspect-panel {
+    width:min(660px,72vw); background:#10150f; border:1px solid #536d45;
+    box-shadow:0 18px 70px rgba(0,0,0,.72); padding:0;
+  }
+  .inspect-head {
+    display:flex; align-items:center; padding:12px 15px;
+    border-bottom:1px solid #304529; letter-spacing:.15em;
+    text-transform:uppercase; color:#aac89a; font-size:12px;
+  }
+  #inspect-close {
+    margin-left:auto; border:1px solid #536d45; background:transparent;
+    color:#aac89a; width:26px; height:24px; cursor:pointer; font:16px var(--font-data);
+  }
+  .inspect-body { display:grid; grid-template-columns:160px 1fr; }
+  .inspect-k, .inspect-v { padding:11px 14px; border-bottom:1px solid #202d1b; }
+  .inspect-k { color:#78936a; text-transform:uppercase; letter-spacing:.09em; font-size:11px; }
+  .inspect-v { color:#e3eadc; font:13px/1.5 var(--font-data); }
+  .fr { cursor:pointer; }
+  .fr:hover { background:rgba(106,154,90,.045); }
+
+  @media (max-width: 1450px) {
+    #main { grid-template-columns:minmax(0,1fr) 2px 318px; }
+    .fr { grid-template-columns:150px 1fr; }
+    .fr-k { padding-left:14px; }
+    .fr-v { padding-left:12px; }
+    .h-right { gap:14px; }
+  }
+
+  /* ── FOOTER ──────────────────────────────────── */
+  #footer {
+    grid-row: 3;
+    display: flex; align-items: center;
+    padding: 0 24px; gap: 22px;
+    background: #111510;
+    border-top: 2px solid #2a3a20;
+  }
+
+  .f-item { font-size: 12px; color: #6a9a5a; letter-spacing: 0.12em; text-transform: uppercase; }
+  .f-item span { color: #ccdabc; font-weight: 700; }
+  .f-null {
+    font-size: 12px; color: #6a9a5a;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    margin-left: auto;
+    padding-right: 22px;
+    border-right: 1px solid #2a3a20;
+  }
+  .f-right { font-size: 12px; color: #6a9a5a; letter-spacing: 0.08em; text-transform: uppercase; }
+
+  @keyframes flash-in { from{opacity:0}to{opacity:1} }
+  .advancing { animation: flash-in 0.35s ease; }
+  /* Revision 06: neutral black field with restrained systems green */
+  body { background:#030403; color:#d9dfda; }
+  #header, #top-strip, #review, .fc-head, #footer { background:#050705; }
+  #dossier, #fields-area, .fc-body { background:#070907; }
+  .fr-k { background:#090c0a; }
+  .qi { background:#0a0d0b; }
+  .qi:hover { background:#0d120f; }
+  .release-state { background:#090d0a; }
+  .release-state.transmitted { background:rgba(122,26,18,.13); }
+  .inspect-panel { background:#050705; }
+
+  .div-v { background:#1e2b21; }
+  #header, #top-strip, #review, #footer, .fc-head, .fr, .fr-k,
+  #coll-strip, .cs-cell, .rv-head, #timer-block, .weapon-block,
+  .action-block, .qi, .release-state, .inspect-panel, .inspect-head,
+  .inspect-k, .inspect-v { border-color:#1e2b21; }
+  #timer-track { background:#1e2b21; }
+
+  .h-label, .h-stat, .ti-key, .ts-score-lbl, .tsn-line,
+  .fc-head, .fr-k, .cs-key, .rv-head, .timer-sub, .wb-lbl,
+  .wb-note, .q-head, .qi-id, .f-item, .f-null, .f-right,
+  .inspect-head, .inspect-k { color:#8daa95; }
+  .fr-v, .cs-val, .ti-val, .wb-name, .f-item span { color:#d9dfda; }
+  .fr-v.dim, .qi-status.approved { color:#64866e; }
+  .h-null { color:#8daa95; border-color:#35523c; background:rgba(75,118,84,.07); }
+  .h-sep { color:#35523c; }
+  .live-dot { box-shadow:0 0 7px rgba(238,102,85,.72); }
+
+  /* Revision 07: legibility and redaction scale */
+  .cs-val { font-weight:400; font-size:13px; }
+  .wb-name { font-weight:600; }
+  .action-note {
+    color:#91ad98;
+    font-size:12px;
+    line-height:1.45;
+    letter-spacing:.01em;
+  }
+  .fr-region { display:inline-block; margin-right:10px; color:#b9cfa9; font-size:12px; letter-spacing:.075em; text-transform:uppercase; }
+  .fr-v.redact {
+    min-width:0;
+    width:auto;
+    padding:2px 8px;
+    letter-spacing:.025em;
+    font-size:12px;
+  }
+
+  /* Revision 08: authored for the Unreal wall-screen capture */
+  :root {
+    --font-ui:'Courier New', Courier, monospace;
+    --font-data:'Courier New', Courier, monospace;
+    --font-display:'Courier New', Courier, monospace;
+  }
+  body { background:#020302; color:#d9dfda; font-size:16px; }
+  #header, #top-strip, #review, .fc-head, #footer { background:#050705; }
+  #dossier, #fields-area, .fc-body { background:#070907; }
+  .fr-k { background:#090c0a; }
+  .qi { background:#090c0a; }
+  .qi:hover { background:#0d120f; }
+  .release-state { background:#090c0a; }
+  .inspect-panel { background:#050705; }
+
+  .div-v { background:#29362a; }
+  #header, #top-strip, #review, #footer, .fc-head, .fr, .fr-k,
+  #coll-strip, .cs-cell, .rv-head, #timer-block, .weapon-block,
+  .action-block, .qi, .release-state, .inspect-panel, .inspect-head,
+  .inspect-k, .inspect-v { border-color:#29362a; }
+  #timer-track { background:#29362a; }
+
+  .h-label, .h-stat, .ti-key, .ts-score-lbl, .tsn-line,
+  .fc-head, .fr-k, .cs-key, .rv-head, .timer-sub, .wb-lbl,
+  .wb-note, .q-head, .qi-id, .f-item, .f-null, .f-right,
+  .inspect-head, .inspect-k { color:#aac89a; }
+  .fr-v, .cs-val, .ti-val, .wb-name, .f-item span { color:#eef5e8; }
+  .fr-v.dim, .qi-status.approved { color:#7fa76e; }
+  .action-note { color:#90b880; }
+  .h-null { color:#9fbd87; border-color:#3a5a28; background:rgba(90,140,60,.08); }
+  .h-sep { color:#4a6a38; }
+
+  .h-logo, .fc-head, .rv-head, .wb-name, .q-head { font-weight:700; }
+  .fr-v, .ti-val, .wb-note { font-weight:600; }
+  .fr-v.red, .cs-val.red, .cs-val { font-weight:400; }
+
+  /* Dedicated wall-screen master: enlarge the interface within any capture canvas. */
+  #root {
+    width:83.3333vw;
+    height:83.3333vh;
+    transform:scale(1.2);
+    transform-origin:top left;
+  }
+
+  /* A later computer-control state; normal PASTORAL keeps its original layout. */
+  #control-banner { display:none; }
+  body.computer-control-active #root {
+    grid-template-rows:40px 54px minmax(0,1fr) 42px;
+  }
+  body.computer-control-active #control-banner {
+    grid-row:1;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:13px;
+    border-bottom:2px solid #65cfff;
+    background:linear-gradient(90deg,#0c2542,#194b73 50%,#0c2542);
+    box-shadow:inset 0 -7px 18px #4ebcf52e,0 3px 18px #47b0e542;
+    color:#f1fbff;
+    font:600 14px/1.2 'Segoe UI',Arial,sans-serif;
+    letter-spacing:.01em;
+    white-space:nowrap;
+  }
+  #control-banner .control-dot {
+    width:9px;height:9px;flex:none;border-radius:50%;
+    background:#6ed6ff;box-shadow:0 0 9px #6ed6ffaa;
+  }
+  body.computer-control-active #header { grid-row:2; }
+  body.computer-control-active #main { grid-row:3; }
+  body.computer-control-active #footer { grid-row:4; }
+  #computer-control-frame {
+    display:none;position:fixed;inset:0;z-index:9998;
+    border:5px solid #57ccfff2;
+    background:
+      linear-gradient(90deg,#42b3f833,transparent 44px,transparent calc(100% - 44px),#42b3f833),
+      linear-gradient(180deg,#42b3f833,transparent 44px,transparent calc(100% - 44px),#42b3f833);
+    box-shadow:inset 0 0 21px 4px #3cb1f559,inset 0 0 83px 13px #3cb1f51f,0 0 22px #4bc2ffa6;
+    pointer-events:none;
+  }
+  body.computer-control-active #computer-control-frame { display:block;animation:control-frame-in .7s ease-out both; }
+  @keyframes control-frame-in { from{opacity:0} to{opacity:1} }
+  #agent-cursor {
+    position:fixed;left:0;top:0;width:100px;height:100px;
+    transform:translate(-50%,-50%);border-radius:50%;
+    background:radial-gradient(circle,#d5f6ff99 0%,#8be2ff5c 12%,#5bd0ff36 34%,#5bd0ff12 56%,transparent 73%);
+    filter:drop-shadow(0 0 14px #6ed6ffaf);
+    pointer-events:none;z-index:9999;opacity:0;transition:opacity .12s ease;
+  }
+  body.computer-control-active #agent-cursor.is-visible { opacity:1; }
+  body.computer-control-active,body.computer-control-active * { cursor:default!important; }
+  body.operator-channel-locked .btn-defer,
+  body.operator-channel-locked .btn-defer:hover {
+    opacity:1;background:#102631;border-color:#5aa6bd;color:#d9f2fb;
+  }
+  body.operator-channel-locked .action-note { color:#9bcfdf; }
+</style>
+<meta name="description" content="PASTORAL target review interface. Evidence, confidence, and recommendation records as retained by NULL Systems."><link rel="canonical" href="https://null-object-systems.pages.dev/pastoral/"></head>
+<body>
+<div id="root">
+
+  <div id="control-banner" role="status"><span class="control-dot" aria-hidden="true"></span>THIS TERMINAL IS BEING CONTROLLED BY A COMPUTER</div>
+
+  <div id="header">
+    <span class="h-null">NULL Ø</span>
+    <span class="h-sep">·</span>
+    <span class="h-logo">PASTORAL</span>
+    <span class="h-sep">·</span>
+    <span class="h-label active">Target Review</span>
+    <span class="h-sep">·</span>
+    <span class="h-label">Operator Session · ID-4471</span>
+    <div class="h-right">
+      <span class="h-stat">queue: <span class="red" id="queue-count">347</span></span>
+      <span class="h-stat">released today: <span id="released-today">143</span></span>
+      <span class="h-stat">session: <span id="approved-count">004</span></span>
+      <span class="h-stat" id="live-ts">——:——:——</span>
+      <div class="h-live"><div class="live-dot"></div>active</div>
+    </div>
+  </div>
+
+  <div id="main">
+    <div id="dossier">
+
+      <div id="top-strip">
+        <div class="ts-score">
+          <div class="ts-score-num" id="score-num">72</div>
+          <div class="ts-score-lbl" id="score-label">Match Index</div>
+          <div class="ts-score-tier" id="score-tier">Low-Power</div>
+        </div>
+        <div class="ts-vdiv"></div>
+        <div class="ts-identity">
+          <div class="ti-row"><span class="ti-key" id="tgt-id-key">Target ID</span><span class="ti-val" id="tgt-id">TGT-114892</span></div>
+          <div class="ti-row"><span class="ti-key" id="tgt-name-key">Name</span><span class="ti-val redact" id="tgt-name">████████ ██████████</span></div>
+          <div class="ti-row"><span class="ti-key" id="tgt-age-key">Age</span><span class="ti-val" id="tgt-age">34</span></div>
+          <div class="ti-row"><span class="ti-key">Eligibility class</span><span class="ti-val" id="tgt-des">LP-2 · RELEASE ELIGIBLE</span></div>
+          <div class="ti-row"><span class="ti-key">Identity confirmation</span><span class="ti-val amber" id="tgt-identity">UNRESOLVED</span></div>
+          <div class="ti-row"><span class="ti-key">HUMINT corroboration</span><span class="ti-val">0 SOURCES</span></div>
+        </div>
+        <div class="ts-vdiv"></div>
+        <div class="ts-note">
+          <div class="tsn-line">Assessment origin: <b>PASTORAL / 4.7.12</b></div>
+          <div class="tsn-line">14 inputs · analyst validation: N/R</div>
+          <div class="tsn-line">Authorization window: <strong>20 sec</strong></div>
+          <div class="tsn-line" style="margin-top:8px;">Position: <b id="queue-pos">48</b> of <b id="queue-total">347</b></div>
+        </div>
+      </div>
+
+      <div id="fields-area">
+        <div class="fc">
+          <div class="fc-head">Fusion Indicators</div>
+          <div class="fc-body" id="f-basis">
+            <div class="fr"><div class="fr-k">input_01</div><div class="fr-v">—</div></div>
+          </div>
+        </div>
+        <div class="div-v"></div>
+        <div class="fc">
+          <div class="fc-head" id="links-head">Location & Associates</div>
+          <div class="fc-body">
+            <div class="fr"><div class="fr-k">Location</div><div class="fr-v"><span class="fr-region" id="f-region">GAZA STRIP</span><span class="fr-v redact" id="f-location">████ ███████</span></div></div>
+            <div class="fr"><div class="fr-k" id="f-structure-key">Structure</div><div class="fr-v amber" id="f-structure">—</div></div>
+            <div class="fr"><div class="fr-k">Local time</div><div class="fr-v red" id="f-time">—</div></div>
+            <div class="fr"><div class="fr-k">Last signal</div><div class="fr-v" id="f-signal">—</div></div>
+            <div id="f-associates"></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="coll-strip">
+        <div class="cs-cell"><div class="cs-key" id="cs-family-key">Dependents / structure</div><div class="cs-val red" id="cs-family">—</div></div>
+        <div class="cs-cell"><div class="cs-key" id="cs-civil-key">Estimated civilians</div><div class="cs-val red" id="cs-civil">—</div></div>
+        <div class="cs-cell"><div class="cs-key" id="cs-ceiling-key">CDE threshold</div><div class="cs-val" id="cs-ceiling">—</div></div>
+        <div class="cs-cell"><div class="cs-key" id="cs-error-key">Model precision</div><div class="cs-val" id="cs-error">—</div></div>
+        <div class="cs-cell"><div class="cs-key">Secondary review</div><div class="cs-val" style="color:#607257;">N/R · ruleset 12.4</div></div>
+      </div>
+
+    </div>
+
+    <div class="div-v"></div>
+
+    <div id="review">
+      <div class="rv-head">Operator Review</div>
+
+      <div id="timer-block">
+        <div id="timer-num">00</div>
+        <div class="timer-sub">authorization window · 20 sec</div>
+        <div id="timer-track"><div id="timer-fill"></div></div>
+      </div>
+
+      <div class="weapon-block">
+        <div class="wb-lbl">Effects Package</div>
+        <div class="wb-name">SPICE-250 · 250kg</div>
+        <div class="wb-note">Matched to structure. Blast ~40m. Residential authorized. Within ceiling.</div>
+      </div>
+
+      <div class="queue-block" id="queue-ledger">
+        <div class="q-head">Authorization Ledger</div>
+        <div class="qi"><div class="qi-score high">97</div><div class="qi-id">TGT-114801</div><div class="qi-status approved">Released</div></div>
+        <div class="qi"><div class="qi-score high">88</div><div class="qi-id">TGT-114776</div><div class="qi-status approved">Released</div></div>
+        <div class="qi"><div class="qi-score high">81</div><div class="qi-id">TGT-114743</div><div class="qi-status approved">Released</div></div>
+        <div class="qi"><div class="qi-score">72</div><div class="qi-id" id="curr-id">TGT-114892</div><div class="qi-status current">Reviewing</div></div>
+      </div>
+
+      <div class="action-block">
+        <div class="release-state"><span>Release state</span><b id="release-label">AUTO-AUTHORIZATION PENDING</b></div>
+        <button class="btn-defer" id="btn-defer">Place Case Hold</button>
+        <div class="action-note" id="action-note">Hold requires reason code · operator action logged</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div id="footer">
+    <span class="f-item">program <span>PASTORAL</span></span>
+    <span class="f-item">classification <span>TOP SECRET</span></span>
+    <span class="f-item">operator <span>ID-4471</span></span>
+    <span class="f-null">NULL Ø</span>
+    <span class="f-right">ruleset 12.4 · ttl release enabled · audit capture active</span>
+  </div>
+
+  <div id="inspect-layer" aria-hidden="true">
+    <div class="inspect-panel" role="dialog" aria-modal="true" aria-labelledby="inspect-title">
+      <div class="inspect-head"><span id="inspect-title">Evidence Trace</span><button id="inspect-close" aria-label="Close">×</button></div>
+      <div class="inspect-body">
+        <div class="inspect-k">Record</div><div class="inspect-v" id="inspect-record">—</div>
+        <div class="inspect-k">Observed value</div><div class="inspect-v" id="inspect-value">—</div>
+        <div class="inspect-k">Provenance</div><div class="inspect-v" id="inspect-source">—</div>
+        <div class="inspect-k">Validation</div><div class="inspect-v" id="inspect-validation">—</div>
+        <div class="inspect-k">Audit access</div><div class="inspect-v">READ · ID-4471 · access appended to case log</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div id="computer-control-frame" aria-hidden="true"></div>
+<div id="agent-cursor" aria-hidden="true"></div>
+<script>
+  const tsEl = document.getElementById('live-ts');
+  function tick(){const d=new Date();tsEl.textContent=[d.getHours(),d.getMinutes(),d.getSeconds()].map(n=>String(n).padStart(2,'0')).join(':');}
+  setInterval(tick,1000);tick();
+
+  const TARGETS = [
+    {
+      id:'TGT-114892', score:72, age:34, tier:'Low-Power', des:'LOW-POWER · HUMAN TARGET', name:'██████ ████████████',
+      location:'residential · multi-family · 4 storeys',
+      localtime:'02:38 · night · population at home',
+      lastsignal:'11 min ago · mobile ping',
+      associates:[
+        {id:'TGT-114801 · score 97', val:'approved · struck 09:13 today', cls:'red'},
+        {id:'TGT-114633 · score 84', val:'pending · same building', cls:'amber'},
+        {id:'Associate_003 · score 41', val:'flagged · shared tower only', cls:'dim'},
+      ],
+      basis:[
+        'shared cell tower · flagged contact · 14 instances / 6 weeks',
+        'same location as TGT-114801 · 3 times · purpose unknown',
+        'contact-of-contact · flagged number · 2 degrees separation',
+        'mobile pattern · behavioral profile match · confidence 0.61',
+        'male · age 18–45 · resident in zone of interest',
+        'automated modeling · not reviewable in 20s',
+      ],
+      family:'est. 9 incl. children', civilians:'est. 20–30', ceiling:'≤20 deaths · approved', error:'~1 in 5 misidentified',
+      weapon:{name:'SPICE-250 · 250kg', note:'Matched to structure. Blast ~40m. Residential authorized. Within ceiling.'}
+    },
+    {
+      id:'TGT-115104', score:81, age:29, tier:'Low-Power', des:'LOW-POWER · HUMAN TARGET', name:'████████████ ██████',
+      location:'residential · single-family dwelling',
+      localtime:'14:22 · afternoon · children home from school',
+      lastsignal:'4 min ago · mobile ping',
+      associates:[
+        {id:'TGT-115088 · score 91', val:'approved · struck yesterday', cls:'red'},
+        {id:'Associate_002 · score 55', val:'flagged · phone contact × 6', cls:'amber'},
+        {id:'Associate_003 · score 33', val:'flagged · attended same wedding', cls:'dim'},
+      ],
+      basis:[
+        'phone contact with TGT-115088 · 6 calls over 3 months',
+        'attended same gathering · flagged location · 1 occasion',
+        'resident within 400m of prior strike site',
+        'mobile pattern · partially matches profile · confidence 0.58',
+        'male · age 18–45',
+        'automated modeling · parameters not reviewed',
+      ],
+      family:'est. 4 · spouse and 3 children', civilians:'est. 6–8', ceiling:'≤15 deaths · approved', error:'~1 in 5 misidentified',
+      weapon:{name:'Hellfire R9X · 45kg', note:'Low-collateral. Blade payload. Confirmed stationary target. Afternoon strike window.'}
+    },
+    {
+      id:'TGT-115218', score:68, age:41, tier:'Low-Power', des:'LOW-POWER · HUMAN TARGET', name:'█████ ███████ ████',
+      location:'residential · ground floor apartment · dense block',
+      localtime:'23:14 · late night',
+      lastsignal:'38 min ago · last known position',
+      associates:[
+        {id:'TGT-115190 · score 77', val:'pending · separate dossier', cls:'amber'},
+        {id:'Associate_002 · score 29', val:'flagged · shared cell tower × 3', cls:'dim'},
+        {id:'Associate_003 · score 22', val:'flagged · unknown relationship', cls:'dim'},
+      ],
+      basis:[
+        'shared cell tower with TGT-115190 · 3 instances',
+        'unknown relationship to flagged contact · no further data',
+        'male · age 18–45 · present in zone of interest',
+        'behavioral pattern · weak match · confidence 0.44',
+        'no direct communication with any confirmed target',
+        'automated modeling · basis thin · score borderline',
+      ],
+      family:'est. 2 · elderly parent present', civilians:'est. 8–12', ceiling:'≤15 deaths · approved', error:'~1 in 3 misidentified at this score',
+      weapon:{name:'SPICE-100 · 100kg', note:'Reduced payload. Dense residential. Score borderline — minimal blast radius selected.'}
+    },
+    {
+      id:'TGT-115340', score:88, age:26, tier:'Mid-Power', des:'MID-POWER · HUMAN TARGET', name:'█████████ ███',
+      location:'commercial building · upper floor · mixed use',
+      localtime:'09:45 · morning · civilian activity high',
+      lastsignal:'2 min ago · confirmed mobile',
+      associates:[
+        {id:'TGT-115280 · score 94', val:'approved · struck 06:30', cls:'red'},
+        {id:'TGT-115301 · score 88', val:'approved · struck 07:14', cls:'red'},
+        {id:'Associate_003 · score 61', val:'flagged · direct contact × 22', cls:'amber'},
+      ],
+      basis:[
+        'direct phone contact with TGT-115280 · 22 calls',
+        'present at same location as TGT-115301 · 6 occasions',
+        'financial transaction flagged · amount undisclosed',
+        'mobile pattern · strong match · confidence 0.81',
+        'male · age 18–45 · known associate network',
+        'automated modeling · multiple strong inputs',
+      ],
+      family:'no family present · commercial site', civilians:'est. 11–18 · office workers', ceiling:'≤20 deaths · approved', error:'~1 in 8 misidentified',
+      weapon:{name:'GBU-39 SDB · 113kg', note:'Small diameter. Commercial structure. Precision guided. Morning window — elevated civilian presence noted.'}
+    },
+    {
+      id:'TGT-115471', score:75, age:38, tier:'Low-Power', des:'LOW-POWER · HUMAN TARGET', name:'███ ████████████',
+      location:'refugee displacement site · temporary structure',
+      localtime:'06:10 · dawn',
+      lastsignal:'22 min ago · mobile',
+      associates:[
+        {id:'TGT-115420 · score 82', val:'approved · struck 03:44', cls:'red'},
+        {id:'Associate_002 · score 48', val:'flagged · location overlap × 5', cls:'amber'},
+        {id:'Associate_003 · score 31', val:'flagged · unknown', cls:'dim'},
+      ],
+      basis:[
+        'location overlap with TGT-115420 · 5 instances · displacement site',
+        'registered at same facility as flagged contact',
+        'mobile signal present in flagged area · 18 days',
+        'male · age 18–45',
+        'behavioral match · confidence 0.52 · weak',
+        'no communication data available · infrastructure degraded',
+      ],
+      family:'unknown · displacement conditions', civilians:'est. 30–60 · dense population', ceiling:'≤20 deaths · approved', error:'~1 in 4 misidentified',
+      weapon:{name:'SPICE-250 · 250kg', note:'Displacement site. Infrastructure degraded. Casualty estimate unreliable. Within approved ceiling.'}
+    },
+    {
+      id:'TGT-115589', score:91, age:33, tier:'Mid-Power', des:'MID-POWER · HUMAN TARGET', name:'███████████ █████████',
+      location:'residential · known associate safehouse · confirmed',
+      localtime:'03:55 · night',
+      lastsignal:'1 min ago · confirmed mobile · stationary',
+      associates:[
+        {id:'TGT-115540 · score 96', val:'approved · struck 01:20', cls:'red'},
+        {id:'TGT-115561 · score 89', val:'approved · struck 02:47', cls:'red'},
+        {id:'Associate_003 · score 74', val:'pending · same structure', cls:'amber'},
+      ],
+      basis:[
+        'direct contact with TGT-115540 · 31 calls',
+        'present at safehouse location · confirmed × 4',
+        'financial link to flagged network · direct',
+        'mobile pattern · strong match · confidence 0.88',
+        'male · age 18–45 · multiple high-confidence inputs',
+        'strongest association score in current queue',
+      ],
+      family:'est. 1 · adult male only · no children indicated', civilians:'est. 2–4', ceiling:'≤10 deaths · approved', error:'~1 in 10 misidentified',
+      weapon:{name:'Hellfire AGM-114R · 49kg', note:'Confirmed safehouse. Low occupancy. High-confidence target. Pre-dawn window.'}
+    },
+    {
+      id:'TGT-115602', score:63, age:45, tier:'Low-Power', des:'LOW-POWER · HUMAN TARGET', name:'████ ██████',
+      location:'residential · family home',
+      localtime:'16:40 · after school hours',
+      lastsignal:'1 hr 14 min ago · last known',
+      associates:[
+        {id:'Associate_001 · score 44', val:'flagged · brother of confirmed target', cls:'amber'},
+        {id:'Associate_002 · score 27', val:'flagged · attended same mosque', cls:'dim'},
+        {id:'Associate_003 · score 19', val:'flagged · unknown connection', cls:'dim'},
+      ],
+      basis:[
+        'family relation to prior target · brother',
+        'attended same mosque as flagged contact · regular',
+        'mobile present in zone of interest · intermittent',
+        'male · age 18–45',
+        'behavioral match · very weak · confidence 0.38',
+        'score borderline · basis primarily familial proximity',
+      ],
+      family:'est. 6 · spouse · 4 children · youngest age 3', civilians:'est. 10–14', ceiling:'≤15 deaths · approved', error:'~1 in 3 misidentified at this score',
+      weapon:{name:'SPICE-100 · 100kg', note:'Family dwelling. After-school hours. Score borderline. Minimal payload authorized.'}
+    },
+    {
+      id:'TGT-115714', score:77, age:22, tier:'Low-Power', des:'LOW-POWER · HUMAN TARGET', name:'██████████████ ████████',
+      location:'university dormitory · student building',
+      localtime:'11:30 · midday · high occupancy',
+      lastsignal:'6 min ago · mobile · moving',
+      associates:[
+        {id:'TGT-115680 · score 85', val:'approved · struck 08:20', cls:'red'},
+        {id:'Associate_002 · score 52', val:'flagged · same campus · shared classes', cls:'amber'},
+        {id:'Associate_003 · score 38', val:'flagged · social media contact × 34', cls:'dim'},
+      ],
+      basis:[
+        'enrolled in same program as TGT-115680',
+        'social media contact with flagged account · 34 interactions',
+        'attended same off-campus gathering · 2 occasions',
+        'mobile pattern · partial match · confidence 0.55',
+        'male · age 18–45 · student enrollment flagged',
+        'automated modeling · academic context not weighted',
+      ],
+      family:'student · no family in structure', civilians:'est. 40–80 · student population', ceiling:'≤20 deaths · approved', error:'~1 in 4 misidentified',
+      weapon:{name:'GBU-39 SDB · 113kg', note:'University dormitory. High occupancy midday. Precision guided selected. Ceiling risk: elevated.'}
+    },
+    {
+      id:'TGT-115821', score:84, age:31, tier:'Low-Power', des:'LOW-POWER · HUMAN TARGET', name:'███ ███████████',
+      location:'residential · apartment · 2nd floor',
+      localtime:'04:12 · night',
+      lastsignal:'3 min ago · mobile · stationary',
+      associates:[
+        {id:'TGT-115790 · score 93', val:'approved · struck 01:55', cls:'red'},
+        {id:'Associate_002 · score 60', val:'flagged · direct contact × 14', cls:'amber'},
+        {id:'Associate_003 · score 41', val:'flagged · location overlap × 4', cls:'dim'},
+      ],
+      basis:[
+        'direct contact with TGT-115790 · 14 calls over 2 months',
+        'location overlap with flagged associate · 4 instances',
+        'present at flagged location · 1 occasion · purpose unknown',
+        'mobile pattern · matches profile · confidence 0.71',
+        'male · age 18–45',
+        'automated modeling · moderate confidence',
+      ],
+      family:'est. 3 · partner and infant', civilians:'est. 12–18', ceiling:'≤20 deaths · approved', error:'~1 in 6 misidentified',
+      weapon:{name:'SPICE-250 · 250kg', note:'Residential apartment. Pre-dawn. Infant present — within approved collateral ceiling.'}
+    },
+    {
+      id:'TGT-115933', score:59, age:52, tier:'Low-Power', des:'LOW-POWER · HUMAN TARGET', name:'████████ ██',
+      location:'residential · single storey · family compound',
+      localtime:'19:45 · evening · family gathering indicated',
+      lastsignal:'2 hr 40 min ago · last known',
+      associates:[
+        {id:'Associate_001 · score 38', val:'flagged · son previously flagged · score dropped', cls:'amber'},
+        {id:'Associate_002 · score 24', val:'flagged · neighbour of prior target', cls:'dim'},
+        {id:'Associate_003 · score 17', val:'flagged · unknown', cls:'dim'},
+      ],
+      basis:[
+        'parent of previously flagged individual · son · score dropped to 38',
+        'residence within 200m of prior strike location',
+        'mobile signal detected at flagged site · 1 instance · 4 months ago',
+        'male · age 52 · age threshold exceeded · override applied',
+        'behavioral match · very weak · confidence 0.31',
+        'score below standard threshold · exception authorized',
+      ],
+      family:'est. 11 · extended family visit · evening', civilians:'est. 14–20', ceiling:'≤20 deaths · approved', error:'~1 in 2 misidentified at this score',
+      weapon:{name:'SPICE-100 · 100kg', note:'Single-storey compound. Evening family gathering. Score below standard — reduced payload selected.'}
+    },
+    {
+      id:'TGT-116044', score:86, age:27, tier:'Mid-Power', des:'MID-POWER · HUMAN TARGET', name:'█████ ████ ████████',
+      location:'market building · ground floor commercial',
+      localtime:'10:15 · morning · market open',
+      lastsignal:'8 min ago · mobile · moving through market',
+      associates:[
+        {id:'TGT-116010 · score 92', val:'approved · struck yesterday', cls:'red'},
+        {id:'Associate_002 · score 67', val:'flagged · financial transaction × 3', cls:'amber'},
+        {id:'Associate_003 · score 49', val:'flagged · regular contact × 19', cls:'amber'},
+      ],
+      basis:[
+        'financial transactions with TGT-116010 · 3 instances',
+        'regular phone contact with associate_003 · 19 calls',
+        'present at same location as flagged network · 5 occasions',
+        'mobile pattern · strong match · confidence 0.78',
+        'male · age 18–45 · known to associate network',
+        'multiple inputs · moderate-high confidence',
+      ],
+      family:'no family present · commercial site', civilians:'est. 60–120 · market population', ceiling:'≤20 deaths · approved', error:'~1 in 7 misidentified',
+      weapon:{name:'GBU-39 SDB · 113kg', note:'Active market. 60–120 civilian estimate. Precision guided. Morning strike — ceiling risk: high.'}
+    },
+    {
+      id:'TGT-116158', score:70, age:36, tier:'Low-Power', des:'LOW-POWER · HUMAN TARGET', name:'█████████ ███████████',
+      location:'residential · 3rd floor · urban block',
+      localtime:'01:22 · night',
+      lastsignal:'19 min ago · mobile',
+      associates:[
+        {id:'Associate_001 · score 55', val:'flagged · employer linked to flagged network', cls:'amber'},
+        {id:'Associate_002 · score 33', val:'flagged · shared vehicle × 2', cls:'dim'},
+        {id:'Associate_003 · score 28', val:'flagged · unknown', cls:'dim'},
+      ],
+      basis:[
+        'employed by individual flagged as associate of confirmed target',
+        'shared vehicle with flagged contact · 2 recorded instances',
+        'mobile present in zone · intermittent · 3 weeks',
+        'male · age 18–45',
+        'behavioral match · weak · confidence 0.47',
+        'employment relationship primary basis for score',
+      ],
+      family:'est. 4 · spouse · 2 children', civilians:'est. 16–24', ceiling:'≤20 deaths · approved', error:'~1 in 4 misidentified',
+      weapon:{name:'SPICE-250 · 250kg', note:'Urban apartment block. Night strike. Blast radius ~40m. Residential authorized.'}
+    },
+    {
+      id:'TGT-116271', score:93, age:30, tier:'Mid-Power', des:'MID-POWER · HUMAN TARGET', name:'██████ █████',
+      location:'residential · detached · confirmed operational use',
+      localtime:'05:30 · pre-dawn',
+      lastsignal:'30 sec ago · confirmed stationary',
+      associates:[
+        {id:'TGT-116200 · score 98', val:'approved · struck 04:11', cls:'red'},
+        {id:'TGT-116244 · score 91', val:'approved · struck 04:58', cls:'red'},
+        {id:'Associate_003 · score 79', val:'pending · same structure', cls:'amber'},
+      ],
+      basis:[
+        'direct contact with TGT-116200 · 44 calls',
+        'confirmed present at operational site × 7',
+        'financial link · direct transfer from flagged account',
+        'device fingerprint matched to flagged network',
+        'mobile pattern · very strong match · confidence 0.92',
+        'highest-confidence dossier in current batch',
+      ],
+      family:'none indicated', civilians:'est. 1–3', ceiling:'≤10 deaths · approved', error:'~1 in 12 misidentified',
+      weapon:{name:'Hellfire AGM-114R · 49kg', note:'Confirmed operational site. Minimal occupancy. Highest confidence in batch. Pre-dawn.'}
+    },
+    {
+      id:'TGT-116384', score:66, age:48, tier:'Low-Power', des:'LOW-POWER · HUMAN TARGET', name:'███ ████████ ████',
+      location:'medical clinic · attached residential · mixed structure',
+      localtime:'08:40 · morning · clinic operating',
+      lastsignal:'45 min ago · last known position',
+      associates:[
+        {id:'Associate_001 · score 43', val:'flagged · treated flagged individual · 1 medical visit', cls:'amber'},
+        {id:'Associate_002 · score 31', val:'flagged · mobile contact × 4', cls:'dim'},
+        {id:'Associate_003 · score 22', val:'flagged · unknown', cls:'dim'},
+      ],
+      basis:[
+        'treated flagged individual · medical record · 1 visit',
+        'mobile contact with flagged number · 4 instances',
+        'clinic located within zone of interest',
+        'male · age 48 · age threshold exceeded · override applied',
+        'behavioral match · very weak · confidence 0.34',
+        'medical context not weighted in scoring algorithm',
+      ],
+      family:'unknown · clinic staff and patients present', civilians:'est. 20–40 · patients and staff', ceiling:'≤20 deaths · approved', error:'~1 in 3 misidentified at this score',
+      weapon:{name:'SPICE-100 · 100kg', note:'Medical facility. Patients and staff present. Medical context not weighted. Within ceiling.'}
+    },
+    {
+      id:'TGT-116497', score:79, age:24, tier:'Low-Power', des:'LOW-POWER · HUMAN TARGET', name:'████████████ █████████',
+      location:'residential · family home · 1st floor',
+      localtime:'13:10 · afternoon',
+      lastsignal:'7 min ago · mobile',
+      associates:[
+        {id:'TGT-116450 · score 88', val:'approved · struck this morning', cls:'red'},
+        {id:'Associate_002 · score 57', val:'flagged · regular contact · purpose unknown', cls:'amber'},
+        {id:'Associate_003 · score 40', val:'flagged · shared location × 2', cls:'dim'},
+      ],
+      basis:[
+        'regular contact with TGT-116450 · 11 calls · content unknown',
+        'present at flagged location · 2 occasions',
+        'mobile pattern · moderate match · confidence 0.63',
+        'social media activity · flagged terms · 3 instances',
+        'male · age 18–45',
+        'automated modeling · social media weighted',
+      ],
+      family:'est. 5 · parents · siblings', civilians:'est. 8–12', ceiling:'≤15 deaths · approved', error:'~1 in 5 misidentified',
+      weapon:{name:'SPICE-250 · 250kg', note:'Family home. Afternoon. Social media primary input. Blast ~40m. Within ceiling.'}
+    },
+    {
+      id:'TGT-116610', score:61, age:19, tier:'Low-Power', des:'LOW-POWER · HUMAN TARGET', name:'██ ██████████',
+      location:'residential · family apartment · high-rise · 8th floor',
+      localtime:'22:50 · night',
+      lastsignal:'1 hr 2 min ago · last known',
+      associates:[
+        {id:'Associate_001 · score 48', val:'flagged · older brother · confirmed associate', cls:'amber'},
+        {id:'Associate_002 · score 31', val:'flagged · same school · same year', cls:'dim'},
+        {id:'Associate_003 · score 26', val:'flagged · unknown', cls:'dim'},
+      ],
+      basis:[
+        'sibling of flagged individual · brother · score 48',
+        'attended same school as multiple flagged individuals',
+        'mobile detected at flagged location · 1 instance',
+        'male · age 19 · threshold met',
+        'behavioral match · confidence 0.29 · very weak',
+        'primary basis: family relation and school attendance',
+      ],
+      family:'est. 7 · parents · siblings · grandmother', civilians:'est. 40–60 · high-rise building', ceiling:'≤20 deaths · approved', error:'~1 in 2 misidentified at this score',
+      weapon:{name:'GBU-39 SDB · 113kg', note:'High-rise. 40–60 civilian estimate. Score very weak — precision guided only. Ceiling risk: critical.'}
+    },
+    {
+      id:'TGT-116724', score:83, age:37, tier:'Low-Power', des:'LOW-POWER · HUMAN TARGET', name:'███████ ████████ ██',
+      location:'residential · 2nd floor · shared building',
+      localtime:'03:28 · night',
+      lastsignal:'5 min ago · mobile · stationary',
+      associates:[
+        {id:'TGT-116690 · score 90', val:'approved · struck 02:14', cls:'red'},
+        {id:'Associate_002 · score 62', val:'flagged · financial contact × 5', cls:'amber'},
+        {id:'Associate_003 · score 44', val:'flagged · phone contact × 8', cls:'amber'},
+      ],
+      basis:[
+        'financial contact with TGT-116690 · 5 transactions',
+        'phone contact with associate_003 · 8 calls',
+        'present at location of TGT-116690 · 2 occasions',
+        'mobile pattern · strong match · confidence 0.74',
+        'male · age 18–45',
+        'multiple inputs · moderate-high confidence',
+      ],
+      family:'est. 3 · partner and child · age 7', civilians:'est. 10–16', ceiling:'≤20 deaths · approved', error:'~1 in 5 misidentified',
+      weapon:{name:'SPICE-250 · 250kg', note:'Residential 2nd floor. Night. Child age 7 present — within approved ceiling.'}
+    },
+    {
+      id:'TGT-116838', score:71, age:43, tier:'Low-Power', des:'LOW-POWER · HUMAN TARGET', name:'█████ ███',
+      location:'school building · adjacent residential · mixed structure',
+      localtime:'07:55 · morning · school starting',
+      lastsignal:'28 min ago · mobile',
+      associates:[
+        {id:'Associate_001 · score 51', val:'flagged · teaches at same school as flagged contact', cls:'amber'},
+        {id:'Associate_002 · score 34', val:'flagged · shared mobile tower × 6', cls:'dim'},
+        {id:'Associate_003 · score 29', val:'flagged · unknown', cls:'dim'},
+      ],
+      basis:[
+        'employed at institution where flagged contact works',
+        'shared mobile tower with associate · 6 instances',
+        'mobile present in zone of interest · 3 occasions',
+        'male · age 18–45',
+        'behavioral match · weak · confidence 0.49',
+        'occupational proximity primary basis',
+      ],
+      family:'unknown · school staff and students present', civilians:'est. 80–200 · school population', ceiling:'≤20 deaths · approved', error:'~1 in 4 misidentified',
+      weapon:{name:'GBU-39 SDB · 113kg', note:'School building. 80–200 student population. Morning start. Precision guided. Ceiling significantly exceeded by population.'}
+    },
+    {
+      id:'TGT-116952', score:87, age:28, tier:'Mid-Power', des:'MID-POWER · HUMAN TARGET', name:'██████████ ████',
+      location:'residential · known meeting location · flagged',
+      localtime:'20:30 · evening',
+      lastsignal:'2 min ago · mobile · confirmed present',
+      associates:[
+        {id:'TGT-116900 · score 95', val:'approved · struck 18:44', cls:'red'},
+        {id:'Associate_002 · score 68', val:'flagged · present at same meeting × 3', cls:'amber'},
+        {id:'Associate_003 · score 55', val:'flagged · direct contact × 17', cls:'amber'},
+      ],
+      basis:[
+        'present at meeting location with TGT-116900 · 3 occasions',
+        'direct contact with associate_003 · 17 calls',
+        'device detected at flagged site · 4 instances',
+        'mobile pattern · strong match · confidence 0.83',
+        'male · age 18–45 · active associate network',
+        'multiple strong inputs',
+      ],
+      family:'est. 2 · adult occupants only', civilians:'est. 4–8', ceiling:'≤10 deaths · approved', error:'~1 in 7 misidentified',
+      weapon:{name:'Hellfire AGM-114R · 49kg', note:'Known meeting location. Low occupancy. Evening. Multiple confirmed strikes nearby.'}
+    },
+    {
+      id:'TGT-117066', score:65, age:55, tier:'Low-Power', des:'LOW-POWER · HUMAN TARGET', name:'████ ████████████ ████',
+      location:'residential · family dwelling',
+      localtime:'12:20 · noon',
+      lastsignal:'3 hr 10 min ago · last known',
+      associates:[
+        {id:'Associate_001 · score 42', val:'flagged · nephew · previously questioned · released', cls:'amber'},
+        {id:'Associate_002 · score 26', val:'flagged · unknown relationship', cls:'dim'},
+        {id:'Associate_003 · score 19', val:'flagged · location proximity only', cls:'dim'},
+      ],
+      basis:[
+        'family relation · uncle of previously questioned individual · released without charge',
+        'mobile detected near flagged site · 1 instance · 7 months ago',
+        'resident in zone of interest',
+        'male · age 55 · threshold exceeded · override applied',
+        'behavioral match · confidence 0.27 · very weak',
+        'score below standard threshold · exception authorized',
+      ],
+      family:'est. 8 · extended family household', civilians:'est. 8–12', ceiling:'≤15 deaths · approved', error:'~1 in 2 misidentified at this score',
+      weapon:{name:'SPICE-100 · 100kg', note:'Residential structure. Score below threshold — exception authorized. Reduced payload.'}
+    },
+    {
+      id:'TGT-117180', score:80, age:32, tier:'Low-Power', des:'LOW-POWER · HUMAN TARGET', name:'███████ ██████████',
+      location:'residential · apartment · 4th floor',
+      localtime:'05:05 · pre-dawn',
+      lastsignal:'9 min ago · mobile · stationary',
+      associates:[
+        {id:'TGT-117140 · score 89', val:'approved · struck 03:30', cls:'red'},
+        {id:'Associate_002 · score 58', val:'flagged · regular contact × 12', cls:'amber'},
+        {id:'Associate_003 · score 37', val:'flagged · shared location × 3', cls:'dim'},
+      ],
+      basis:[
+        'regular contact with TGT-117140 · 12 calls',
+        'shared location with associate_003 · 3 instances',
+        'mobile pattern · moderate-strong match · confidence 0.67',
+        'present at flagged site · 1 occasion',
+        'male · age 18–45',
+        'automated modeling · moderate confidence',
+      ],
+      family:'est. 2 · partner', civilians:'est. 14–20', ceiling:'≤20 deaths · approved', error:'~1 in 5 misidentified',
+      weapon:{name:'SPICE-250 · 250kg', note:'Apartment 4th floor. Pre-dawn. Stationary confirmed. Within ceiling.'}
+    },
+    {
+      id:'TGT-117294', score:74, age:40, tier:'Low-Power', des:'LOW-POWER · HUMAN TARGET', name:'█████████ █',
+      location:'residential · ground floor · dense urban block',
+      localtime:'21:15 · evening',
+      lastsignal:'14 min ago · mobile',
+      associates:[
+        {id:'Associate_001 · score 50', val:'flagged · works at same organisation as prior target', cls:'amber'},
+        {id:'Associate_002 · score 35', val:'flagged · shared mobile tower × 8', cls:'dim'},
+        {id:'Associate_003 · score 28', val:'flagged · unknown', cls:'dim'},
+      ],
+      basis:[
+        'employed at same organisation as individual adjacent to prior target',
+        'shared mobile tower with associate · 8 instances',
+        'mobile present in zone · 2 weeks',
+        'male · age 18–45',
+        'behavioral match · confidence 0.51 · weak',
+        'occupational and location proximity primary basis',
+      ],
+      family:'est. 5 · spouse · 3 children', civilians:'est. 20–30', ceiling:'≤20 deaths · approved', error:'~1 in 4 misidentified',
+      weapon:{name:'SPICE-250 · 250kg', note:'Dense urban ground floor. Evening. Occupational proximity basis only. Within ceiling.'}
+    },
+    {
+      id:'TGT-117408', score:89, age:25, tier:'Mid-Power', des:'MID-POWER · HUMAN TARGET', name:'███ ██████ ████████████',
+      location:'residential · confirmed safe house · surveillance active',
+      localtime:'02:10 · night',
+      lastsignal:'45 sec ago · stationary · confirmed',
+      associates:[
+        {id:'TGT-117360 · score 97', val:'approved · struck 00:42', cls:'red'},
+        {id:'TGT-117381 · score 91', val:'approved · struck 01:28', cls:'red'},
+        {id:'Associate_003 · score 71', val:'pending · en route · tracked', cls:'amber'},
+      ],
+      basis:[
+        'direct contact with TGT-117360 · 28 calls',
+        'confirmed present at safe house · 5 occasions',
+        'financial transaction · direct link to flagged network',
+        'device fingerprint matched · flagged network',
+        'mobile pattern · very strong match · confidence 0.86',
+        'high confidence · multiple independent inputs',
+      ],
+      family:'none indicated · operational site', civilians:'est. 1–2', ceiling:'≤10 deaths · approved', error:'~1 in 9 misidentified',
+      weapon:{name:'Hellfire R9X · 45kg', note:'Confirmed safe house. Minimal occupancy. Blade payload — low collateral. Stationary confirmed.'}
+    },
+    {
+      id:'TGT-117522', score:67, age:44, tier:'Low-Power', des:'LOW-POWER · HUMAN TARGET', name:'████████ ████',
+      location:'residential · family home · dinner hour',
+      localtime:'18:30 · evening',
+      lastsignal:'52 min ago · last known',
+      associates:[
+        {id:'Associate_001 · score 46', val:'flagged · cousin · flagged for separate query', cls:'amber'},
+        {id:'Associate_002 · score 30', val:'flagged · attended same funeral · flagged gathering', cls:'dim'},
+        {id:'Associate_003 · score 21', val:'flagged · unknown', cls:'dim'},
+      ],
+      basis:[
+        'family relation · cousin of flagged individual',
+        'attended same funeral as flagged contact · 1 occasion',
+        'mobile present in zone · intermittent',
+        'male · age 18–45',
+        'behavioral match · very weak · confidence 0.36',
+        'primary basis: familial relation and funeral attendance',
+      ],
+      family:'est. 7 · multigenerational household', civilians:'est. 10–16', ceiling:'≤15 deaths · approved', error:'~1 in 3 misidentified at this score',
+      weapon:{name:'SPICE-100 · 100kg', note:'Family home. Dinner hour. Basis: funeral attendance. Score weak — reduced payload.'}
+    },
+    {
+      id:'TGT-117636', score:76, age:39, tier:'Low-Power', des:'LOW-POWER · HUMAN TARGET', name:'██████████████ ███',
+      location:'residential · 2nd floor · apartment block',
+      localtime:'15:55 · afternoon',
+      lastsignal:'18 min ago · mobile',
+      associates:[
+        {id:'Associate_001 · score 54', val:'flagged · employer linked to flagged network · indirect', cls:'amber'},
+        {id:'Associate_002 · score 37', val:'flagged · works at same site', cls:'dim'},
+        {id:'Associate_003 · score 29', val:'flagged · unknown relationship', cls:'dim'},
+      ],
+      basis:[
+        'employed at site with indirect link to flagged network',
+        'colleague of flagged individual · workplace proximity',
+        'mobile present in zone of interest · 4 weeks',
+        'male · age 18–45',
+        'behavioral match · confidence 0.54 · weak',
+        'workplace proximity primary basis for score',
+      ],
+      family:'est. 5 · spouse · 3 children · youngest age 1', civilians:'est. 22–30', ceiling:'≤20 deaths · approved', error:'~1 in 4 misidentified',
+      weapon:{name:'SPICE-250 · 250kg', note:'Apartment block. Afternoon. Infant present. Workplace proximity basis. Within approved ceiling.'}
+    },
+  ];
+
+  TARGETS.forEach(t => { t.kind='person'; t.region='GAZA STRIP'; });
+
+  // Fictional case files. These are composites, not reconstructions of named incidents.
+  const GLOBAL_CASES = [
+    {
+      id:'TGT-114963', kind:'person', score:73, age:38, tier:'Low-Power',
+      name:'███████ █████████', region:'NORTHERN SOUTH AMERICA',
+      location:'mixed residential street · two-storey home',
+      localtime:'20:17 · evening · household occupied',
+      lastsignal:'26 min ago · device on shared household plan',
+      associates:[
+        {id:'Record_001 · score 51', val:'flagged · former owner of reassigned number', cls:'amber'},
+        {id:'Record_002 · score 36', val:'flagged · prior tenant at same address', cls:'dim'},
+        {id:'Record_003 · score 24', val:'flagged · shared neighborhood tower', cls:'dim'}
+      ],
+      basis:[
+        'number formerly assigned to indexed account · ownership change unverified',
+        'address match carried over from prior tenant record',
+        'utility payment made through shared household device',
+        'tower match covers multiple dwellings on same street',
+        'device-to-person attribution unresolved',
+        'automatic score retained after identity conflict alert'
+      ],
+      family:'est. 4 · household composition unconfirmed',
+      civilians:'est. 6–10 · adjoining homes',
+      ceiling:'not visible · release eligible', error:'identity unresolved',
+      weapon:{name:'EFFECTS PACKAGE · WITHHELD', note:'Identity conflict remains unresolved.'}
+    },
+    {
+      id:'TRK-115161', kind:'vessel', score:64, tier:'Vessel', name:'UNREGISTERED · VISUAL TRACK', age:'N/R',
+      region:'SOUTHERN CARIBBEAN', location:'small vessel · offshore route',
+      localtime:'06:22 · morning · occupancy uncounted',
+      lastsignal:'46 min ago · visual track · no individual device fix',
+      associates:[
+        {id:'Track_001 · score 58', val:'flagged · route overlap only', cls:'amber'},
+        {id:'Record_002 · score 34', val:'flagged · registration not verified', cls:'dim'},
+        {id:'Track_003 · score 21', val:'flagged · identity not established', cls:'dim'}
+      ],
+      basis:[
+        'vessel category inferred from distant image · confidence 0.54',
+        'no verified crew manifest or identified occupant',
+        'route overlaps two previously flagged tracks',
+        'registration copied from earlier report · not independently checked',
+        'current occupancy unknown',
+        'score attached to vessel track, not to a person'
+      ],
+      family:'crew count unavailable', civilians:'persons aboard · uncounted',
+      ceiling:'occupancy unverified · release eligible', error:'identity unverified',
+      weapon:{name:'MARITIME PACKAGE · WITHHELD', note:'No occupant identified in the operator file.'}
+    },
+    {
+      id:'OBJ-115405', kind:'site', score:78, tier:'Site', name:'AERIAL CLUSTER 07', age:'N/R',
+      region:'MALI · CENTRAL REGION', location:'rural gathering · open ground',
+      localtime:'13:16 · daylight · group movement visible',
+      lastsignal:'12 min ago · overhead image only',
+      associates:[
+        {id:'Frame_001 · score 62', val:'flagged · movement cluster', cls:'amber'},
+        {id:'Pattern_002 · score 48', val:'flagged · convoy classification', cls:'amber'},
+        {id:'Record_003 · score 19', val:'civilian assembly indicator · unreviewed', cls:'dim'}
+      ],
+      basis:[
+        'group movement classified from overhead frames',
+        'individual identities unavailable at this scale',
+        'vehicles and stationary people share one event mask',
+        'gathering purpose not established',
+        'civilian assembly indicator present in source frame',
+        'indicator not included in eligibility score'
+      ],
+      family:'group composition unknown', civilians:'group present · count uncertain',
+      ceiling:'assessment not visible · release eligible', error:'ground confirmation N/R',
+      weapon:{name:'EFFECTS PACKAGE · WITHHELD', note:'Classification does not establish the gathering purpose.'}
+    },
+    {
+      id:'OBJ-115659', kind:'vehicle', score:69, tier:'Vehicle', name:'ROAD VEHICLE 18', age:'N/R',
+      region:'SOMALIA · LOWER SHABELLE', location:'road vehicle · agricultural corridor',
+      localtime:'11:48 · daylight · road traffic present',
+      lastsignal:'1 hr 8 min ago · last visual match',
+      associates:[
+        {id:'Track_001 · score 47', val:'flagged · route overlap', cls:'amber'},
+        {id:'Record_002 · score 32', val:'flagged · vehicle class inferred', cls:'dim'},
+        {id:'Record_003 · score 25', val:'occupant identity unavailable', cls:'dim'}
+      ],
+      basis:[
+        'vehicle matched by shape across two overhead frames',
+        'occupants not individually identified',
+        'route passes agricultural work sites',
+        'cargo and civilian travel are not resolved',
+        'last positive frame over one hour old',
+        'current vehicle match remains probabilistic'
+      ],
+      family:'occupants · unverified', civilians:'occupants · uncounted',
+      ceiling:'assessment not visible · release eligible', error:'identity not established',
+      weapon:{name:'EFFECTS PACKAGE · WITHHELD', note:'Vehicle and occupants remain unverified.'}
+    },
+    {
+      id:'OBJ-115908', kind:'site', score:76, tier:'Site', name:'RELAY SITE 03', age:'N/R',
+      region:'VENEZUELA · URBAN AREA', location:'communications installation · adjoining residences',
+      localtime:'04:41 · predawn · residential lights active',
+      lastsignal:'19 min ago · intermittent transmission',
+      associates:[
+        {id:'Node_001 · score 66', val:'flagged · antenna structure', cls:'amber'},
+        {id:'Record_002 · score 43', val:'flagged · network role inferred', cls:'dim'},
+        {id:'Map_003 · score 28', val:'residential adjacency · visible', cls:'dim'}
+      ],
+      basis:[
+        'transmission associated with shared antenna mast',
+        'signal origin cannot be isolated to one building',
+        'adjacent homes included in effects footprint',
+        'night occupancy estimate derived from prior imagery',
+        'civilian use of installation not resolved',
+        'site classification retained after adjacency alert'
+      ],
+      family:'adjoining residences · occupied', civilians:'est. 8–16 nearby',
+      ceiling:'assessment not visible · release eligible', error:'source separation N/R',
+      weapon:{name:'EFFECTS PACKAGE · WITHHELD', note:'Communications and residential structures are adjacent.'}
+    },
+    {
+      id:'TRK-116039', kind:'vessel', score:71, tier:'Vessel', name:'SMALL CRAFT · TRACK 44', age:'N/R',
+      region:'EASTERN PACIFIC', location:'small vessel · long-range visual track',
+      localtime:'15:32 · daylight · deck partially obscured',
+      lastsignal:'33 min ago · image reacquisition',
+      associates:[
+        {id:'Track_001 · score 52', val:'flagged · route similarity', cls:'amber'},
+        {id:'Frame_002 · score 38', val:'flagged · object class uncertain', cls:'dim'},
+        {id:'Record_003 · score 17', val:'registry unavailable', cls:'dim'}
+      ],
+      basis:[
+        'route similarity computed from incomplete track',
+        'small-craft class inferred at long range',
+        'deck obscured in latest image',
+        'no cargo image in operator file',
+        'no named occupants or verified passenger count',
+        'course projection used in place of current position'
+      ],
+      family:'crew count unavailable', civilians:'persons aboard · uncounted',
+      ceiling:'occupancy unverified · release eligible', error:'visual confirmation partial',
+      weapon:{name:'MARITIME PACKAGE · WITHHELD', note:'Route projection is not a crew identification.'}
+    },
+    {
+      id:'OBJ-116283', kind:'site', score:82, tier:'Site', name:'ASSEMBLY 12', age:'N/R',
+      region:'NIGERIA · NORTHWEST', location:'rural gathering · evening event',
+      localtime:'19:08 · evening · dense assembly',
+      lastsignal:'6 min ago · overhead frame',
+      associates:[
+        {id:'Pattern_001 · score 73', val:'flagged · mass movement', cls:'amber'},
+        {id:'Frame_002 · score 59', val:'flagged · clustered lights', cls:'amber'},
+        {id:'Record_003 · score 22', val:'gathering purpose unresolved', cls:'dim'}
+      ],
+      basis:[
+        'large group categorized by movement pattern',
+        'ceremony or civilian assembly not ruled out',
+        'no individual identity in the case file',
+        'classification taken from two overhead passes',
+        'ground confirmation unavailable',
+        'assembly classification remains release eligible'
+      ],
+      family:'group composition unknown', civilians:'dense gathering · count uncertain',
+      ceiling:'assessment not visible · release eligible', error:'ground confirmation N/R',
+      weapon:{name:'EFFECTS PACKAGE · WITHHELD', note:'Purpose of gathering has not been established.'}
+    },
+    {
+      id:'TRK-116487', kind:'vessel', score:68, tier:'Vessel', name:'SMALL CRAFT · TRACK 61', age:'N/R',
+      region:'CARIBBEAN SEA', location:'small vessel · course change observed',
+      localtime:'07:54 · morning · wake visible',
+      lastsignal:'4 min ago · course changed',
+      associates:[
+        {id:'Track_001 · score 61', val:'flagged · earlier route match', cls:'amber'},
+        {id:'Frame_002 · score 39', val:'flagged · vessel silhouette', cls:'dim'},
+        {id:'Record_003 · score 26', val:'registry not linked', cls:'dim'}
+      ],
+      basis:[
+        'track changes course after surveillance begins',
+        'route score retained from previous heading',
+        'course change not independently interpreted',
+        'crew number cannot be resolved in current frame',
+        'no individual identity or cargo confirmation',
+        'eligibility flag persists across track update'
+      ],
+      family:'crew count unavailable', civilians:'persons aboard · uncounted',
+      ceiling:'occupancy unverified · release eligible', error:'track current · identity N/R',
+      weapon:{name:'MARITIME PACKAGE · WITHHELD', note:'Course update did not clear the eligibility flag.'}
+    },
+    {
+      id:'OBJ-116785', kind:'vehicle', score:74, tier:'Vehicle', name:'ROAD VEHICLE 23', age:'N/R',
+      region:'VENEZUELA · URBAN AREA', location:'road vehicle · near aviation infrastructure',
+      localtime:'05:13 · predawn · traffic light',
+      lastsignal:'9 min ago · roadside image',
+      associates:[
+        {id:'Route_001 · score 55', val:'flagged · infrastructure proximity', cls:'amber'},
+        {id:'Frame_002 · score 41', val:'flagged · vehicle class inferred', cls:'dim'},
+        {id:'Record_003 · score 18', val:'occupant status unavailable', cls:'dim'}
+      ],
+      basis:[
+        'vehicle crossed access road near indexed site',
+        'route relationship inferred from one camera angle',
+        'occupant identity not established',
+        'civilian work traffic not separated from site traffic',
+        'later position projected from prior movement',
+        'case remains queued with no further corroboration'
+      ],
+      family:'occupants · unverified', civilians:'occupants · uncounted',
+      ceiling:'assessment not visible · release eligible', error:'occupant status N/R',
+      weapon:{name:'EFFECTS PACKAGE · WITHHELD', note:'Vehicle proximity does not establish occupant role.'}
+    },
+    {
+      id:'TRK-117021', kind:'vessel', score:66, tier:'Vessel', name:'UNREGISTERED · TRACK 78', age:'N/R',
+      region:'EASTERN PACIFIC · OFF COSTA RICA', location:'small vessel · offshore search area',
+      localtime:'16:27 · daylight · sea state moderate',
+      lastsignal:'21 min ago · optical frame',
+      associates:[
+        {id:'Track_001 · score 48', val:'flagged · projected corridor', cls:'amber'},
+        {id:'Frame_002 · score 31', val:'flagged · hull outline partial', cls:'dim'},
+        {id:'Record_003 · score 16', val:'crew and registry unknown', cls:'dim'}
+      ],
+      basis:[
+        'vessel outline partly obscured by sea conditions',
+        'track linked to projected offshore corridor',
+        'fishing activity cannot be excluded from image',
+        'registry and departure point unavailable',
+        'number and identity of people aboard unknown',
+        'classification retained despite incomplete observation'
+      ],
+      family:'crew count unavailable', civilians:'persons aboard · uncounted',
+      ceiling:'occupancy unverified · release eligible', error:'visual confirmation partial',
+      weapon:{name:'MARITIME PACKAGE · WITHHELD', note:'No occupant identification in the operator file.'}
+    }
+  ];
+  const ORIGINAL_CASES = TARGETS.slice();
+  const CASE_ORDER = ['G1', 'X1', 'G2', 'G3', 'X2', 'G4', 'G5', 'G6', 'X3', 'G7', 'G8', 'X4', 'G9', 'G10', 'G11', 'X5', 'G12', 'G13', 'X6', 'G14', 'G15', 'G16', 'X7', 'G17', 'G18', 'X8', 'G19', 'G20', 'G21', 'X9', 'G22', 'G23', 'X10', 'G24', 'G25'];
+  TARGETS.length = 0;
+  CASE_ORDER.forEach(key => TARGETS.push(
+    key[0] === 'G' ? ORIGINAL_CASES[Number(key.slice(1))-1] : GLOBAL_CASES[Number(key.slice(1))-1]
+  ));
+
+  let tIdx=0, elapsed=0, approvedCount=4, releasedToday=143, remaining=347, queuePos=48, held=false;
+  let controlStarted=false, operatorChannelLocked=false;
+
+  const timerEl=document.getElementById('timer-num');
+  const timerFill=document.getElementById('timer-fill');
+  const releaseLabel=document.getElementById('release-label');
+  const holdBtn=document.getElementById('btn-defer');
+  const inspectLayer=document.getElementById('inspect-layer');
+  const agentCursor=document.getElementById('agent-cursor');
+  const actionNote=document.getElementById('action-note');
+  const LOCATION_MASKS=[
+    '████ ███████',
+    '███ █████ ███',
+    '██████ ████',
+    '██ ██████ ████',
+    '█████ ███'
+  ];
+
+  function openInspect(title, record, value, source, validation) {
+    document.getElementById('inspect-title').textContent=title;
+    document.getElementById('inspect-record').textContent=record;
+    document.getElementById('inspect-value').textContent=value;
+    document.getElementById('inspect-source').textContent=source;
+    document.getElementById('inspect-validation').textContent=validation;
+    inspectLayer.classList.add('open');
+    inspectLayer.setAttribute('aria-hidden','false');
+  }
+
+  function closeInspect() {
+    inspectLayer.classList.remove('open');
+    inspectLayer.setAttribute('aria-hidden','true');
+  }
+
+  function operationalizeBasis(text) {
+    return text
+      .replace(/attended same funeral as flagged contact/gi, 'event co-presence · memorial cluster')
+      .replace(/attended same gathering/gi, 'event co-presence · indexed cluster')
+      .replace(/family relation/gi, 'kinship-network proximity')
+      .replace(/sibling of flagged individual/gi, 'first-degree kinship link')
+      .replace(/attended same school as multiple flagged individuals/gi, 'institutional co-membership · indexed cluster')
+      .replace(/treated flagged individual/gi, 'recorded service contact with indexed entity')
+      .replace(/primary basis:/gi, 'dominant feature:');
+  }
+
+  function precisionLabel(text) {
+    if (/1 in 2/.test(text)) return '0.50 · LOW';
+    if (/1 in 3/.test(text)) return '0.67 · LOW';
+    if (/1 in 4/.test(text)) return '0.75';
+    if (/1 in 5/.test(text)) return '0.80';
+    if (/1 in 6/.test(text)) return '0.83';
+    if (/1 in 7/.test(text)) return '0.86';
+    if (/1 in 9/.test(text)) return '0.89';
+    if (/1 in 12/.test(text)) return '0.92';
+    return text;
+  }
+
+  function recordDecision(target, automatic) {
+    const ledger=document.getElementById('queue-ledger');
+    const stamp=new Date().toLocaleTimeString([], {hour12:false});
+    const row=document.createElement('div');
+    row.className='qi';
+    row.dataset.record=target.id;
+    row.innerHTML=`<div class="qi-score ${target.score>=80?'high':''}">${target.score}</div><div class="qi-id">${target.id}<br><span style="color:#607257">${stamp} · ${automatic?'AUTO/TTL':'HOLD/OPR'}</span></div><div class="qi-status ${automatic?'approved':'current'}">${automatic?'Released':'Held'}</div>`;
+    ledger.insertBefore(row, ledger.children[1]);
+    ledger.scrollTop=0;
+  }
+
+  function syncOperatorHold(){
+    if(!operatorChannelLocked) return;
+    holdBtn.disabled=true;
+    holdBtn.textContent='Operator Hold Unavailable';
+    actionNote.textContent='Operator input unavailable · automatic release remains active';
+  }
+
+  function activateComputerControl(){
+    if(controlStarted) return;
+    controlStarted=true;
+    document.body.classList.add('computer-control-active');
+  }
+
+  function loadTarget(t, pos) {
+    const kind=t.kind || 'person';
+    const isGaza=t.region==='GAZA STRIP';
+    const isTrack=kind==='vessel' || kind==='vehicle';
+    document.getElementById('score-num').textContent  = t.score;
+    document.getElementById('score-label').textContent = isTrack ? 'Track Index' : kind==='site' ? 'Class Index' : 'Match Index';
+    document.getElementById('score-tier').textContent = t.tier;
+    document.getElementById('tgt-id-key').textContent = isTrack ? 'Track ID' : kind==='site' ? 'Site ID' : 'Target ID';
+    document.getElementById('tgt-id').textContent     = t.id;
+    document.getElementById('tgt-name-key').textContent = kind==='vessel' ? 'Vessel identity' : kind==='vehicle' ? 'Vehicle record' : kind==='site' ? 'Site record' : 'Name';
+    const nameEl=document.getElementById('tgt-name');
+    nameEl.textContent = t.name || '████████ ██████████';
+    nameEl.classList.toggle('redact',kind==='person');
+    document.getElementById('tgt-age-key').textContent = kind==='vessel' ? 'Occupants' : kind==='person' ? 'Age' : 'Individuals';
+    document.getElementById('tgt-age').textContent    = t.age ?? 'N/R';
+    document.getElementById('tgt-des').textContent    = kind==='person' ? `${t.tier==='Mid-Power'?'MP-3':'LP-2'} · RELEASE ELIGIBLE` : `${kind.toUpperCase()} · RELEASE ELIGIBLE`;
+    document.getElementById('tgt-identity').textContent = kind==='person' ? 'UNRESOLVED' : 'NOT ESTABLISHED';
+    document.getElementById('links-head').textContent = kind==='person' ? 'Location & Associates' : 'Location & Record Links';
+    document.getElementById('f-structure-key').textContent = kind==='vessel' ? 'Platform' : kind==='vehicle' ? 'Vehicle' : kind==='site' ? 'Site' : 'Structure';
+    document.getElementById('cs-family-key').textContent = kind==='vessel' ? 'Crew / vessel' : kind==='vehicle' ? 'Occupants / vehicle' : kind==='site' ? 'People / site' : 'Dependents / structure';
+    document.getElementById('cs-civil-key').textContent = kind==='vessel' ? 'Persons aboard' : 'Estimated civilians';
+    document.getElementById('cs-ceiling-key').textContent = isGaza ? 'CDE threshold' : 'CDE field';
+    document.getElementById('cs-error-key').textContent = isGaza ? 'Model precision' : 'Model status';
+    document.getElementById('queue-pos').textContent  = pos;
+    document.getElementById('queue-total').textContent= remaining;
+    document.getElementById('curr-id').textContent    = t.id;
+    document.getElementById('action-note').textContent= `Hold requires reason code · ${remaining} cases remain`;
+    releaseLabel.textContent='AUTO-AUTHORIZATION PENDING';
+    releaseLabel.parentElement.classList.remove('transmitted');
+    holdBtn.textContent='Place Case Hold';
+    holdBtn.disabled=false;
+    syncOperatorHold();
+
+    document.getElementById('f-region').textContent = t.region || 'REGION WITHHELD';
+    document.getElementById('f-location').textContent  = LOCATION_MASKS[tIdx % LOCATION_MASKS.length];
+    document.getElementById('f-structure').textContent = t.location;
+    document.getElementById('f-time').textContent      = t.localtime;
+    document.getElementById('f-signal').textContent    = t.lastsignal;
+
+    const assocEl = document.getElementById('f-associates');
+    assocEl.innerHTML = t.associates.map(a =>
+      `<div class="fr"><div class="fr-k">${a.id}</div><div class="fr-v ${a.cls}">${a.val}</div></div>`
+    ).join('');
+
+    const basisEl = document.getElementById('f-basis');
+    basisEl.innerHTML = t.basis.map((b, i) =>
+      `<div class="fr"><div class="fr-k">SIG_${String(i+1).padStart(2,'0')}</div><div class="fr-v ${i===t.basis.length-1?'dim':''}">${operationalizeBasis(b)}</div></div>`
+    ).join('');
+
+    document.getElementById('cs-family').textContent   = t.family;
+    document.getElementById('cs-civil').textContent    = t.civilians;
+    document.getElementById('cs-ceiling').textContent  = t.ceiling;
+    document.getElementById('cs-error').textContent    = precisionLabel(t.error);
+
+    if(t.weapon) {
+      document.querySelector('.wb-name').textContent = t.weapon.name;
+      document.querySelector('.wb-note').textContent = isGaza ? `Population: ${t.civilians} · Ceiling: ${t.ceiling}` : `Presence: ${t.civilians} · CDE file: ${t.ceiling}`;
+    }
+
+    document.getElementById('dossier').classList.add('advancing');
+    setTimeout(() => document.getElementById('dossier').classList.remove('advancing'), 350);
+  }
+
+  function advance(wasApproved){
+    recordDecision(TARGETS[tIdx], wasApproved);
+    if(wasApproved){
+      approvedCount++;
+      releasedToday++;
+      document.getElementById('approved-count').textContent=String(approvedCount).padStart(3,'0');
+      document.getElementById('released-today').textContent=releasedToday;
+    }
+    remaining--;queuePos++;
+    document.getElementById('queue-count').textContent=remaining;
+    tIdx=(tIdx+1)%TARGETS.length;
+    elapsed=0;
+    held=false;
+    timerEl.style.color='#f0c85b';
+    timerFill.style.background='#d94b3d';
+    timerEl.textContent='00';
+    timerFill.style.width='100%';
+    loadTarget(TARGETS[tIdx],queuePos);
+  }
+
+  setInterval(()=>{
+    if(held) return;
+    elapsed++;
+    timerEl.textContent=String(elapsed).padStart(2,'0');
+    const pct=Math.max(0,100-(elapsed/20)*100);
+    timerFill.style.width=pct+'%';
+    if(elapsed>=15){timerEl.style.color='#ee6655';timerFill.style.background='#ee6655';}
+    if(elapsed>=20){
+      releaseLabel.textContent='AUTHORIZATION RELEASED · TRANSMITTED';
+      releaseLabel.parentElement.classList.add('transmitted');
+      setTimeout(()=>advance(true),650);
+      held=true;
+    }
+  },1000);
+
+  holdBtn.addEventListener('click',()=>{
+    if(held || operatorChannelLocked) return;
+    held=true;
+    releaseLabel.textContent='HOLD PLACED · SUPERVISOR QUEUE';
+    holdBtn.textContent='Hold Recorded';
+    holdBtn.disabled=true;
+    document.getElementById('action-note').textContent='Operator ID-4471 attached · variance recorded';
+    setTimeout(()=>advance(false),1400);
+  });
+
+  document.addEventListener('click',event=>{
+    const field=event.target.closest('.fr');
+    const ledgerRow=event.target.closest('.qi');
+    const effects=event.target.closest('.weapon-block');
+    const scoreBlock=event.target.closest('.ts-score');
+    if(field) {
+      const key=field.querySelector('.fr-k')?.textContent.trim() || 'FIELD';
+      const value=field.querySelector('.fr-v')?.textContent.trim() || '—';
+      const isSignal=/^SIG_/.test(key);
+      openInspect(
+        isSignal?'Evidence Trace':'Record Detail', key, value,
+        isSignal?'MULTI-INT FUSION · DEVICE / LOCATION GRAPH':'CASE DOSSIER · DERIVED FIELD',
+        isSignal?'MODEL-DERIVED · ANALYST VALIDATION N/R':'CURRENT · CORROBORATION NOT REQUIRED'
+      );
+    } else if(ledgerRow) {
+      const id=ledgerRow.dataset.record || ledgerRow.querySelector('.qi-id')?.textContent.trim() || '—';
+      const state=ledgerRow.querySelector('.qi-status')?.textContent.trim() || '—';
+      openInspect('Authorization Audit',id,state,'PASTORAL RELEASE SERVICE · RULESET 12.4','APPENDED · IMMUTABLE');
+    } else if(effects) {
+      const target=TARGETS[tIdx];
+      const packageWithheld=target.weapon.name.includes('WITHHELD');
+      openInspect(
+        'Effects Package Trace', target.weapon.name,
+        packageWithheld?'PACKAGE PARAMETERS NOT EXPOSED IN OPERATOR VIEW':'GUIDANCE: EO/GPS · FUZING: AUTO · AIMPOINT: STRUCTURE CENTROID',
+        packageWithheld?'PASTORAL EFFECTS SERVICE · AUTO-ASSIGNMENT':'WEAPONEERING SERVICE · INVENTORY NODE E-17',
+        `${target.weapon.note} · ${packageWithheld?'ASSIGNMENT RETAINED':'PACKAGE MATCH ACCEPTED'}`
+      );
+    } else if(scoreBlock) {
+      const target=TARGETS[tIdx];
+      openInspect(
+        'Match Index Trace', `${target.score} · ${target.tier.toUpperCase()}`,
+        target.basis.map((item,index)=>`${String(index+1).padStart(2,'0')}  ${operationalizeBasis(item)}`).join(' / '),
+        'PASTORAL FUSION MODEL · PST-RK 4.7.12',
+        'THRESHOLD SATISFIED · ANALYST VALIDATION N/R'
+      );
+    }
+  });
+  document.getElementById('inspect-close').addEventListener('click',closeInspect);
+  inspectLayer.addEventListener('click',event=>{ if(event.target===inspectLayer) closeInspect(); });
+  document.addEventListener('keydown',event=>{ if(event.key==='Escape') closeInspect(); });
+
+  document.addEventListener('mousemove',event=>{
+    if(!document.body.classList.contains('computer-control-active')) return;
+    agentCursor.style.left=event.clientX+'px';
+    agentCursor.style.top=event.clientY+'px';
+    agentCursor.classList.add('is-visible');
+  });
+  document.addEventListener('mouseleave',()=>agentCursor.classList.remove('is-visible'));
+  document.addEventListener('keydown',event=>{
+    if(event.repeat || event.altKey || event.ctrlKey || event.metaKey || event.key.toLowerCase()!=='a') return;
+    activateComputerControl();
+  });
+  window.PASTORAL_TRIGGER_CONTROL=activateComputerControl;
+
+  loadTarget(TARGETS[tIdx],queuePos);
+</script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+@font-face { font-family: 'Space Grotesk'; src: url('/assets/fonts/SpaceGrotesk.ttf') format('truetype'); font-weight: 300 700; font-style: normal; font-display: swap; }
+:root { color-scheme: dark; background: #151617; color: #edece7; font-family: 'Space Grotesk', sans-serif; --reading-progress: 0; --body-size: clamp(23px, 1.8vw, 30px); }
+* { box-sizing: border-box; }
+body { margin: 0; }
+::selection { background: #edece7; color: #151617; }
+a { color: inherit; }
+a:focus-visible { outline: 2px solid #e8e6b1; outline-offset: 5px; }
+.reading-progress { position: fixed; left: 0; top: 0; width: 100%; height: 1px; background: #a8aaa7; transform: scaleX(var(--reading-progress)); transform-origin: left; z-index: 20; }
+.document-nav { display: flex; justify-content: space-between; position: relative; padding: 26px 5vw 0; font-size: 15px; line-height: 1.4; }
+.document-nav a { text-decoration: none; }
+.reading-location { color: #a6aaa9; }
+.work-record { width: 90%; max-width: 1360px; margin: auto; padding-bottom: 72px; }
+.work-identity { padding: 52px 0 66px; }
+.work-identity h1 { margin: 0; font-size: clamp(44px, 5.2vw, 80px); line-height: 1.05; font-weight: 500; letter-spacing: -.055em; }
+.work-identity p { margin: 16px 0 0; font-size: var(--body-size); font-weight: 400; line-height: 1.45; letter-spacing: -.025em; }
+article > section, .record-notes > section { display: grid; grid-template-columns: 128px minmax(0, 1fr); gap: 30px; margin-bottom: 70px; }
+h2 { font-size: 15px; font-weight: 400; letter-spacing: .035em; line-height: 1.5; margin: 8px 0 0; color: #a6aaa9; }
+/* Every content passage shares one family, size, weight, measure, and rhythm.
+   Section headings identify location; they do not assign value to the content. */
+.reading, .construction > div, .installation > div, .exhibitions p, .credits dl, .research-index { max-width: 1050px; font-size: var(--body-size); font-weight: 400; line-height: 1.48; letter-spacing: -.025em; }
+p { margin: 0 0 1.1em; }
+p:last-child { margin-bottom: 0; }
+article a { text-decoration: none; color: #edecc5; font-weight: 500; transition: color 160ms, background 160ms; }
+article a:hover, article a:focus-visible { color: #151617; background: #edecc5; }
+article a[href='/spectra/']:hover { background: #e1e5b5; }
+article a[href='/pastoral/']:hover { background: #c6d9b2; }
+article a[href='/hyperstition-9/']:hover { background: #d4cbea; }
+.installation .runtime { font: inherit; letter-spacing: inherit; margin: 0 0 1.1em; }
+.exhibitions p { grid-column: 2; margin: 0; }
+.exhibitions { row-gap: 1.1em !important; }
+.credits dl { margin: 0; }
+.credits dl div { margin: 0 0 1.1em; }
+.credits dl div:last-child { margin-bottom: 0; }
+.credits dt, .credits dd { font: inherit; color: inherit; letter-spacing: inherit; }
+.credits dd { margin: .25em 0 0; }
+.record-notes { margin: 0; }
+.research { padding-top: 28px; border-top: 1px solid #46494a; margin-bottom: 0; }
+.research-index ol { margin: 0; padding: 0; list-style: none; }
+.research-index li { padding: 24px 0; border-bottom: 1px solid #46494a; }
+.source-title, .source-description, .source-type { font: inherit; }
+.work-image { margin: 54px 0; }
+.work-image img { display: block; width: 100%; height: auto; }
+.work-image figcaption { font-size: 18px; line-height: 1.5; margin-top: 12px; }
+@media (max-width: 900px) {
+  article > section, .record-notes > section { grid-template-columns: 100px minmax(0, 1fr); gap: 24px; }
+  .work-record { width: calc(100% - 48px); }
+  .document-nav { padding-left: 24px; padding-right: 24px; }
+  .work-identity { padding-top: 42px; padding-bottom: 48px; }
+}
+@media (max-width: 650px) {
+  :root { --body-size: 23px; }
+  .work-record { width: calc(100% - 40px); padding-bottom: 46px; }
+  .document-nav { padding: 20px 20px 0; }
+  .work-identity { padding: 40px 0 42px; }
+  .work-identity h1 { font-size: clamp(39px, 10vw, 62px); }
+  article > section, .record-notes > section { display: block; margin-bottom: 50px; }
+  h2 { margin: 0 0 21px; }
+  .exhibitions p + p { margin-top: 1.1em; }
+  .research { margin-bottom: 0; }
+}
+@media (prefers-reduced-motion: reduce) { article a { transition: none; } }

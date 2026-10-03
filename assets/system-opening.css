@@ -1,0 +1,12 @@
+/* A live viewport is revealed through the document, rather than placed in a box.
+   This layer never intercepts the original links or changes document layout. */
+.system-opening { position: fixed; inset: 0; z-index: 5; pointer-events: none; opacity: 0; overflow: hidden; transition: opacity 220ms ease; }
+.system-opening.is-ready { opacity: var(--opening-strength, 0); }
+.system-opening {
+  -webkit-mask-image: radial-gradient(ellipse var(--opening-rx, 0px) var(--opening-ry, 0px) at var(--opening-x, 50%) var(--opening-y, 50%), #000 0%, #000 70%, transparent 100%);
+  mask-image: radial-gradient(ellipse var(--opening-rx, 0px) var(--opening-ry, 0px) at var(--opening-x, 50%) var(--opening-y, 50%), #000 0%, #000 70%, transparent 100%);
+}
+.system-opening iframe { position: absolute; left: 0; top: 0; width: var(--system-width, 100%); height: var(--system-height, 100%); transform: scale(var(--system-scale, 1)); transform-origin: top left; border: 0; opacity: 0; pointer-events: none; background: #151617; }
+.system-opening iframe.is-current { opacity: 1; }
+article a.system-is-open { position: relative; z-index: 6; background: #edecc5; color: #151617; }
+@media (prefers-reduced-motion: reduce) { .system-opening { transition: none; } }

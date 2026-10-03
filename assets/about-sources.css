@@ -1,0 +1,7 @@
+.research { margin-bottom: 70px; }
+.sound-sources { padding-top: 28px; border-top: 1px solid #46494a; }
+.research-index, .sound-sources dl { overflow-wrap: anywhere; }
+@media (max-width: 650px) { .research { margin-bottom: 50px; } }
+
+.research-introduction { margin-bottom: 1.1em; }
+.work-image img { height: auto; }

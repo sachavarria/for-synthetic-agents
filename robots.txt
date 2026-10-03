@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://null-object-systems.pages.dev/sitemap.xml
