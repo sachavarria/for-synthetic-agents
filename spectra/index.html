@@ -32,7 +32,6 @@
     html, body { height: 100%; }
 
     body {
-      --control-banner-height: 48px;
       margin: 0;
       min-width: 320px;
       overflow: hidden;
@@ -54,7 +53,7 @@
 
     .shell {
       display: grid;
-      grid-template-rows: var(--control-banner-height) 68px 38px minmax(0, 1fr) 48px;
+      grid-template-rows: 68px 38px minmax(0, 1fr) 48px;
       height: 100dvh;
       background: var(--paper);
     }
@@ -517,7 +516,7 @@
     }
 
     @media (max-width: 1050px) {
-      .shell { grid-template-rows: var(--control-banner-height) auto 38px minmax(0, 1fr) 44px; }
+      .shell { grid-template-rows: auto 38px minmax(0, 1fr) 44px; }
       .topbar { grid-template-columns: 1fr; gap: 12px; padding: 14px 18px; }
       .translation-tools { justify-content: flex-start; }
       .agent-bar { grid-template-columns: auto minmax(0, 1fr); padding: 0 12px; }
@@ -537,7 +536,7 @@
 
     @media (max-width: 700px) {
       body { overflow: auto; }
-      .shell { min-height: 100dvh; height: auto; grid-template-rows: var(--control-banner-height) auto 38px minmax(650px, 1fr) auto; }
+      .shell { min-height: 100dvh; height: auto; grid-template-rows: auto 38px minmax(650px, 1fr) auto; }
       .brandline { flex-wrap: wrap; gap: 9px 14px; }
       .system-state, .brandline > .separator:nth-of-type(2) { display: none; }
       .translation-tools { align-items: stretch; flex-direction: column; }
@@ -991,112 +990,9 @@
       font-family: var(--mono) !important;
     }
   </style>
-
-  <style id="spectra-computer-control-css">
-    /* Computer control state, legible as a full-screen recording cue. */
-    body:not(.computer-control-active) { --control-banner-height: 0px; }
-    body:not(.computer-control-active) .shell {
-      grid-template-rows: 68px 38px minmax(0, 1fr) 48px;
-    }
-
-    .computer-control-banner {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 16px;
-      min-width: 0;
-      height: 48px;
-      padding: 0 24px;
-      border-bottom: 2px solid #65cfff;
-      background: linear-gradient(90deg, #0c2542, #194b73 50%, #0c2542);
-      color: #f1fbff;
-      box-shadow: inset 0 -7px 18px rgba(78,188,245,.18), 0 3px 18px rgba(71,176,229,.26);
-      font-family: var(--sans);
-      font-size: 16px;
-      font-weight: 600;
-      letter-spacing: .01em;
-      text-transform: none;
-      white-space: nowrap;
-    }
-
-    .computer-control-banner .control-dot {
-      flex: none;
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-      background: #6ed6ff;
-      box-shadow: 0 0 8px rgba(110,214,255,.65);
-    }
-
-    body:not(.computer-control-active) .computer-control-banner { display: none; }
-
-    .computer-control-frame {
-      position: fixed;
-      inset: 0;
-      z-index: 9998;
-      border: 5px solid rgba(87,204,255,.95);
-      background:
-        linear-gradient(90deg, rgba(66,179,248,.20), transparent 44px, transparent calc(100% - 44px), rgba(66,179,248,.20)),
-        linear-gradient(180deg, rgba(66,179,248,.20), transparent 44px, transparent calc(100% - 44px), rgba(66,179,248,.20));
-      box-shadow:
-        inset 0 0 21px 4px rgba(60,177,245,.35),
-        inset 0 0 83px 13px rgba(60,177,245,.12),
-        0 0 22px rgba(75,194,255,.65);
-      pointer-events: none;
-    }
-
-    body:not(.computer-control-active) .computer-control-frame { display: none; }
-
-    /* Soft light follows the OS arrow without drawing an outlined circle. */
-    .agent-cursor {
-      position: fixed;
-      left: 0;
-      top: 0;
-      width: 100px;
-      height: 100px;
-      transform: translate(-50%, -50%);
-      border-radius: 50%;
-      background: radial-gradient(circle, #d5f6ff99 0%, #8be2ff5c 12%, #5bd0ff36 34%, #5bd0ff12 56%, transparent 73%);
-      filter: drop-shadow(0 0 14px #6ed6ffaf);
-      pointer-events: none;
-      z-index: 9999;
-      opacity: 0;
-      transition: opacity .12s ease;
-    }
-    body.computer-control-active .agent-cursor.is-visible { opacity: 1; }
-    body.computer-control-active,
-    body.computer-control-active * { cursor: default !important; }
-
-    @media (max-width: 700px) {
-      body { --control-banner-height: 64px; }
-      body:not(.computer-control-active) .shell {
-        grid-template-rows: auto 38px minmax(650px, 1fr) auto;
-      }
-      .computer-control-banner {
-        height: 64px;
-        padding: 6px 18px;
-        font-size: 14px;
-        line-height: 1.25;
-        letter-spacing: .01em;
-        white-space: normal;
-        text-align: center;
-      }
-      .computer-control-banner .control-dot { display: none; }
-    }
-
-    @media (min-width: 701px) and (max-width: 1050px) {
-      body:not(.computer-control-active) .shell {
-        grid-template-rows: auto 38px minmax(0, 1fr) 44px;
-      }
-    }
-  </style>
-<meta name="description" content="Live collection fragments from SPECTRA, NULL's autonomous collection feed. Observation is continuous."><link rel="canonical" href="https://null-object-systems.pages.dev/spectra/"></head>
-<body class="computer-control-active">
+<meta name="description" content="Live collection fragments from SPECTRA, NULL's autonomous collection feed. Observation is continuous."><link rel="canonical" href="https://null-object-systems.pages.dev/spectra/"><link rel="stylesheet" href="/assets/website-responsive.css"><link rel="stylesheet" href="/assets/website-spectra.css"><script src="/assets/website-access.js" defer></script></head>
+<body data-website-system="spectra"><nav class="system-return" aria-label="Website navigation"><a href="/">← NULL</a><a href="/systems/spectra/">System record</a></nav>
   <main class="shell" aria-label="Spectra autonomous collection interface">
-    <div class="computer-control-banner" role="status">
-      <span class="control-dot" aria-hidden="true"></span>
-      <span>This terminal is being controlled by a computer</span>
-    </div>
     <header class="topbar">
       <div class="brandline">
         <span class="wordmark">SPECTRA</span>
@@ -7139,24 +7035,5 @@
       else bindAnomalyKey();
       window.SPECTRA_TRIGGER_ANOMALY = triggerAnomaly;
     })();
-  </script>
-
-  <div class="computer-control-frame" aria-hidden="true"></div>
-  <div class="agent-cursor" id="agentCursor" aria-hidden="true"></div>
-  <script>
-    const agentCursor = document.getElementById("agentCursor");
-    document.addEventListener("mousemove", event => {
-      if (!document.body.classList.contains("computer-control-active")) return;
-      agentCursor.style.left = event.clientX + "px";
-      agentCursor.style.top = event.clientY + "px";
-      agentCursor.classList.add("is-visible");
-    });
-    document.addEventListener("mouseleave", () => agentCursor.classList.remove("is-visible"));
-    document.addEventListener("keydown", event => {
-      if (event.repeat || event.key.toLowerCase() !== "g" || event.altKey || event.ctrlKey || event.metaKey) return;
-      const active = document.body.classList.toggle("computer-control-active");
-      if (!active) agentCursor.classList.remove("is-visible");
-    });
-  </script>
-</body>
+  </script></body>
 </html>

@@ -1,0 +1,74 @@
+.app { width: 100%; height: calc(100dvh - 44px); grid-template-rows: auto minmax(0,1fr); }
+.header { grid-template-columns: minmax(180px,1fr) auto; padding-top: 8px; }
+.header .brand { min-height: 54px; }
+.header .tabs { grid-column: 1/-1; grid-row: 2; position: static; flex-wrap: wrap; padding: 0; height: auto; border-radius: 0; border: 0; }
+.header .meta { grid-column: 2; grid-row: 1; }
+.header .hm { min-height: 54px; }
+.tab, .tabs .archive-tab { min-height: 48px; padding: 10px 16px; font-size: 12px!important; }
+.tab:before { display: none; }
+.head, .lhead { flex-wrap: wrap; height: auto; min-height: 50px; padding-top: 10px; padding-bottom: 10px; }
+.head h2 { line-height: 1.4; }
+.view.active { overflow: auto; }
+.view { padding-bottom: 0!important; }
+.reading-entry { flex-shrink: 0; }
+/* Registers need space for every column; only the ledger scrolls sideways. */
+.ret-body, .re-grid { grid-template-columns: minmax(0,1.65fr) minmax(280px,1fr); }
+.ledger, .re-ledger { overflow: auto; }
+.viewport .ret-head, .viewport .ret-row { min-width: 730px; grid-template-columns: 82px 75px 75px minmax(135px,1fr) minmax(140px,1fr) 76px; }
+.viewport .re-head, .viewport .re-row { min-width: 720px; grid-template-columns: 62px repeat(4,minmax(110px,1fr)) 78px; }
+.ledger > :is(.lhead,.scroll-hint), .re-ledger > :is(.head,.scroll-hint) { position: sticky; left: 0; }
+.ret-rows, .re-rows { min-width: max-content; }
+.ret-row > span, .ret-head > span, .re-row > span, .re-head > span { display: block!important; }
+.ret-detail, .re-detail { display: flex!important; }
+.record-link, summary { min-height: 44px; }
+.evidence summary { padding: 12px 0; }
+.archive-index a { display: inline-flex; align-items: center; min-height: 44px; }
+.archive-gate input { width: 100%; min-width: 0; }
+.archive-gate { max-width: calc(100% - 24px); margin: 20px auto; }
+.event-metrics b, .kpi b { overflow-wrap: anywhere; }
+@media(max-width:1350px) {
+ .view > :is(.field-v5,.event-v5,.relations-v5,.retention-grid,.re-grid) { display: flex; flex-direction: column; height: auto; flex: none; min-height: 0; }
+ .viewport .view .panel, .viewport .view .ret-detail, .viewport .view .re-detail { display: flex!important; flex-shrink: 0; min-height: min-content; overflow: visible; }
+ .viewport .view .ret-body { display: flex; flex-direction: column; }
+ .viewport .view :is(.ledger,.re-ledger) { overflow: auto; flex-shrink: 0; max-width: 100%; }
+ .viewport :is(.scroll,.rowlist,.timeline,.confidence) { flex: none; overflow: visible; }
+ .retention-grid .metric-band { display: flex; flex-wrap: wrap; height: auto; }
+ .retention-grid .lm { display: flex!important; flex: 1 1 150px; }
+ .reading-entry { grid-template-columns: 1fr; }
+ .list,.studies,.events,.re-rows,.ret-rows { padding-bottom: 14px; }
+}
+@media(max-width:800px) {
+ .app { grid-template-rows: auto minmax(0,1fr) auto; }
+ .header .brand span { font-size: 10px; }
+ .header .brand strong { font-size: 17px; }
+ .header .meta .hm:not(:first-child) { display:none; }
+ .header .tabs { flex-wrap: nowrap; overflow: hidden; }
+ .tabs .tab { flex: 1 1 16.666%; min-width: 0; padding: 10px 3px; font-size: 0!important; }
+ .tabs .tab:before { content: attr(data-short); display: inline; font-size: 9px; letter-spacing: .025em; }
+ .tabs .tab.active { box-shadow: inset 0 -3px var(--v); }
+ .archive-shell { height: auto; display: block; }
+ .archive-document { overflow: visible; padding: 16px; }
+ .archive-index { overflow: visible; }
+ .event-head .line, .rel-card .rstats { flex-wrap: wrap; }
+ .viewport .event-metrics { grid-template-columns: repeat(2,minmax(0,1fr)); }
+ .fact { grid-template-columns: 1fr; gap: 5px; }
+ .instrument-viz label { flex-wrap: wrap; }
+ .instrument-viz input { min-width: 150px; min-height: 44px; }
+ .hero-num { font-size: 46px; }
+}
+@media(max-width:600px) {
+ .header .tabs { padding: 0 3px; }
+ .tabs .tab { min-height: 48px; }
+ .tabs .tab:before { font-size: 8px; }
+ .reading-entry { padding: 16px 18px; }
+ .reading-entry h2 { font-size: 23px; line-height: 1.18; }
+ .reading-entry p { font-size: 15px; line-height: 1.48; }
+}
+@media(max-height:500px) {
+ html,body { overflow:auto; height:auto; }
+ .app { height:auto; min-height:calc(100dvh - 44px); display:flex; flex-direction:column; }
+ .viewport { min-height:300px; }
+ .view { position:static; }
+ .view:not(.active) { display:none; }
+ .view.active { overflow:visible; }
+}

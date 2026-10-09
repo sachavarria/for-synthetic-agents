@@ -1,0 +1,166 @@
+html, body { width: 100%; height: auto; min-height: 100%; overflow: auto; }
+.pastoral-sections, #pastoral-mobile-flow, #pastoral-mobile-location, #pastoral-mobile-review, .pastoral-case-pin { display:none; }
+#root { width: 100%; height: auto; min-height: calc(100dvh - 44px); transform: none; grid-template-rows: auto 1fr auto; }
+#header { flex-wrap: wrap; padding: 14px 18px; gap: 8px 14px; }
+.h-right { flex-wrap: wrap; gap: 8px 16px; }
+#main { grid-template-columns: minmax(0,1fr) 2px 310px; overflow: visible; }
+#dossier, #review, .fc, .fc-body, #fields-area { min-width: 0; overflow: visible; }
+#top-strip { grid-template-columns: 120px 2px minmax(0,1fr); }
+.ts-note { grid-column: 1/-1; flex-direction: row; flex-wrap: wrap; gap: 8px 22px; border-top: 1px solid #29362a; border-left: 0; }
+#top-strip > .ts-vdiv:nth-last-of-type(2) { display: none; }
+.ti-row { display: grid; grid-template-columns: minmax(100px,.8fr) minmax(0,1fr); gap: 8px; }
+.ti-key, .ti-val.redact { min-width: 0; overflow-wrap: anywhere; }
+#fields-area { grid-template-columns: minmax(0,1fr) 2px minmax(0,1fr); }
+.fr { grid-template-columns: minmax(95px,.75fr) minmax(0,1fr); flex: none; min-height: 52px; }
+.fr-k, .fr-v { min-width: 0; overflow-wrap: anywhere; }
+.fr-v { font-size: 14px; font-weight: 400; line-height: 1.55; }
+.fc-head { line-height: 1.5; }
+.queue-block { max-height: 320px; min-height: 180px; }
+.qi { min-height: 48px; flex-wrap: wrap; }
+.qi-id { white-space: normal; }
+#coll-strip { grid-template-columns: repeat(3,minmax(0,1fr)); }
+.cs-cell { border-bottom: 1px solid #29362a; overflow-wrap: anywhere; }
+.btn-defer, #inspect-close { min-height: 44px; }
+#inspect-close { min-width: 44px; }
+.inspect-panel { width: min(660px,calc(100% - 24px)); max-height: calc(100dvh - 72px); overflow: auto; }
+#inspect-layer { padding-top: 44px; }
+.inspect-head { gap: 8px; }
+.inspect-body { grid-template-columns: 135px minmax(0,1fr); }
+.inspect-v { overflow-wrap: anywhere; }
+#footer { flex-wrap: wrap; gap: 8px 18px; padding: 14px 18px; }
+.weapon-block .wb-lbl::after { content: ' · OPEN TRACE'; color: #d2a43b; }
+
+@media(max-width:1350px) {
+ #fields-area { display: block; }
+ .fc + .div-v { display:none; }
+}
+
+@media(max-width:900px), (max-height:500px) {
+ html { scroll-padding-top: 270px; }
+ #root { display:flex; flex-direction:column; }
+ #header { flex:none; }
+ .pastoral-sections {
+  display:flex; position:sticky; top:44px; z-index:9;
+  background:#050705; border-bottom:1px solid #29362a;
+ }
+ .pastoral-sections a {
+  color:#aac89a; font:13px/1.4 var(--font-ui); display:flex;
+  align-items:center; justify-content:center; min-height:44px; flex:1;
+  text-decoration:none;
+ }
+ #main { display:block; width:100%; min-height:0; overflow:visible; }
+ #main > .div-v, #dossier, #review { display:none; }
+ #pastoral-mobile-flow { display:flex; flex-direction:column; min-width:0; }
+
+ /* Identity and the existing location records now form the first case block. */
+ #top-strip { display:flex; flex-direction:column; width:100%; }
+ #top-strip > .ts-vdiv { display:none; }
+ .ts-score { flex-direction:row; justify-content:flex-start; padding:12px 16px; gap:12px; }
+ .ts-score-num { font-size:48px; }
+ .ts-identity { padding:12px 16px; gap:5px; }
+ .ti-row { grid-template-columns:minmax(112px,.72fr) minmax(0,1fr); gap:8px; }
+ #pastoral-mobile-location {
+  display:block; border-top:1px solid #29362a; border-bottom:1px solid #29362a;
+ }
+ #pastoral-mobile-location .fr { min-height:0; }
+ #pastoral-mobile-location .fr:last-child { border-bottom:0; }
+ .ts-note { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); padding:10px 16px; gap:4px 16px; }
+ .tsn-line { min-width:0; }
+
+ /* The live decision state remains together and follows the user while reading. */
+ #pastoral-mobile-review {
+  display:grid; grid-template-columns:94px minmax(0,1fr);
+  position:sticky; top:88px; z-index:8;
+  background:#050705; border-top:2px solid #29362a; border-bottom:2px solid #29362a;
+  box-shadow:0 8px 18px rgba(0,0,0,.38);
+ }
+ #pastoral-mobile-review .rv-head {
+  grid-column:1/-1; padding:7px 12px; display:flex; align-items:baseline;
+  gap:9px; min-width:0;
+ }
+ .pastoral-case-pin {
+  display:block; margin-left:auto; min-width:0; overflow:hidden; text-overflow:ellipsis;
+  white-space:nowrap; color:#eef5e8; font:11px/1.4 var(--font-data);
+  letter-spacing:0; text-transform:none;
+ }
+ #pastoral-mobile-review #timer-block {
+  padding:8px 10px; border:0; border-right:1px solid #29362a;
+  display:flex; flex-direction:column; justify-content:center;
+ }
+ #pastoral-mobile-review #timer-num { font-size:38px; }
+ #pastoral-mobile-review .timer-sub { font-size:9px; line-height:1.25; margin-top:2px; }
+ #pastoral-mobile-review #timer-track { margin:6px 0 0; }
+ #pastoral-mobile-review .action-block {
+  padding:7px 10px 8px; border:0; gap:5px; min-width:0;
+ }
+ #pastoral-mobile-review .release-state { padding:6px 8px; }
+ #pastoral-mobile-review .release-state span { font-size:9px; margin-bottom:1px; }
+ #pastoral-mobile-review .release-state b { font-size:11px; line-height:1.3; overflow-wrap:anywhere; }
+ #pastoral-mobile-review .btn-defer { min-height:44px; padding:7px 8px; }
+ #pastoral-mobile-review .action-note { font-size:10px; line-height:1.25; text-align:left; }
+
+ /* Effects trace, then the complete ledger, then the remaining dossier. */
+ .weapon-block { padding:11px 14px; }
+ .queue-block { order:initial; flex:none; max-height:240px; min-height:0; padding:10px 12px; }
+ .qi { min-height:42px; padding:5px 8px; }
+ #fields-area { display:block; width:100%; }
+ .fc + .div-v { display:none; }
+ .fc { overflow:visible; }
+ .fc-body { overflow:visible; }
+ .fc-head { padding:8px 14px; }
+ .fr {
+  grid-template-columns:minmax(100px,31%) minmax(0,1fr);
+  min-height:0;
+ }
+ .fr-k { padding:8px 9px 8px 14px; font-size:12px; }
+ .fr-v { padding:8px 12px; font-size:13px; line-height:1.45; }
+ #coll-strip { grid-template-columns:repeat(2,minmax(0,1fr)); }
+ .cs-cell { padding:8px 12px; }
+ #footer { flex:none; }
+ .h-right { margin-left:0; width:100%; }
+ .f-null { margin-left:0; }
+}
+
+@media(max-width:600px) {
+ #header { padding:10px 12px; }
+ .h-logo { font-size:18px; }
+ .h-label { font-size:12px; letter-spacing:.04em; }
+ .h-sep { display:none; }
+ .h-stat { font-size:12px; }
+ .ts-score { padding:10px 12px; }
+ .ts-score-num { font-size:42px; }
+ .ts-identity { padding:10px 12px; }
+ .ti-row { grid-template-columns:minmax(104px,35%) minmax(0,1fr); }
+ .ti-key { font-size:11px; letter-spacing:.02em; }
+ .ti-val { font-size:13px; }
+ .ti-val.redact { min-width:0; }
+ .ts-note { grid-template-columns:1fr; padding:9px 12px; }
+ .tsn-line { font-size:12px; }
+ .fr { grid-template-columns:minmax(92px,30%) minmax(0,1fr); }
+ .fr-k { padding-left:12px; font-size:11px; }
+ .fr-v { padding-right:10px; font-size:12px; }
+ .fr-region { display:block; margin:0 0 3px; }
+ #coll-strip { grid-template-columns:repeat(2,minmax(0,1fr)); }
+ .inspect-body { grid-template-columns:1fr; }
+ .inspect-k { padding-bottom:3px; border-bottom:0; }
+ .inspect-v { padding-top:3px; }
+}
+
+@media(max-width:390px) {
+ #pastoral-mobile-review { grid-template-columns:84px minmax(0,1fr); }
+ #pastoral-mobile-review .rv-head { gap:6px; }
+ .pastoral-case-pin { font-size:10px; }
+ #pastoral-mobile-review #timer-num { font-size:34px; }
+ #pastoral-mobile-review .action-note { display:none; }
+}
+
+@media(max-height:500px) {
+ html { scroll-padding-top:244px; }
+ #pastoral-mobile-review { top:88px; grid-template-columns:80px minmax(0,1fr); }
+ #pastoral-mobile-review .rv-head { padding-block:5px; }
+ #pastoral-mobile-review #timer-block { padding-block:5px; }
+ #pastoral-mobile-review #timer-num { font-size:30px; }
+ #pastoral-mobile-review .action-block { padding-block:5px; }
+ #pastoral-mobile-review .release-state { padding-block:4px; }
+ #pastoral-mobile-review .action-note { display:none; }
+}

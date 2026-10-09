@@ -1,0 +1,34 @@
+/* Website adaptation. Installation masters in originals/ are unchanged. */
+html { scroll-padding-top: 100px; }
+img, video { max-width: 100%; }
+button, a, summary, input, select { touch-action: manipulation; }
+:is(button, a, summary, input, select, [tabindex]):focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+[data-website-system] { padding-top: 44px; }
+.system-return { position: fixed; inset: 0 0 auto; height: 44px; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 0 16px; background: #111315; color: #edeeeb; border-bottom: 1px solid #454846; font: 12px/1.4 ui-monospace, Consolas, monospace; }
+.system-return a { display: inline-flex; min-height: 44px; align-items: center; padding: 0 8px; color: inherit; text-decoration: none; }
+.system-return a:hover { text-decoration: underline; }
+.scroll-hint { padding: 8px 14px; margin: 0; font: 12px/1.5 ui-monospace, Consolas, monospace; color: inherit; border-bottom: 1px solid currentColor; }
+.table-wrap { max-width: 100%; scrollbar-width: auto; }
+main, section, article, .document-content, .index-item { min-width: 0; }
+@media(max-width: 900px), (max-height: 500px) {
+ .site-header { position: relative; }
+ .primary-nav a, .footer-links a, .control { min-height: 44px; display: inline-flex; align-items: center; }
+ .primary-nav { gap: 0 18px; }
+ .section-head, .register-header { flex-wrap: wrap; }
+ .section-head .mono { font-size: 11px; }
+ .program .action { display: inline-flex; align-items: center; min-height: 44px; }
+ .header-inner { flex-wrap: wrap; }
+ .document-nav { flex-wrap: wrap; gap: 8px 16px; padding-top: 8px; padding-bottom: 8px; }
+ .document-nav a { display: inline-flex; align-items: center; min-height: 44px; }
+ .document-nav .reading-location { font-size: 12px; }
+ .footer-bottom { overflow-wrap: anywhere; }
+}
+@media(max-width:600px) {
+ h1 { overflow-wrap: break-word; }
+ .work-identity { flex-wrap: wrap; }
+ .document-nav { position: relative; }
+ .access footer { flex-wrap: wrap; }
+ .controls summary { text-align: left; min-height: 44px; }
+ .record-list a { flex-wrap: wrap; }
+ .document-content, .research, .credit-list { overflow-wrap: anywhere; }
+}
