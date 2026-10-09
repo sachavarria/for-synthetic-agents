@@ -230,49 +230,7 @@ body:not(.instrument-motion) .dot{animation:none}
 .instrument-viz{margin:14px 0;padding:12px;border:1px solid #17161b33;background:#e8e1d5;color:#17161b}.instrument-viz summary{cursor:pointer;font:12px/1.4 var(--mo);color:#6146ad}.instrument-viz svg{display:block;width:100%;height:auto;margin:12px 0}.instrument-viz svg text{font:12px var(--f);fill:#363239}.instrument-viz label{display:flex;align-items:center;gap:16px;font-size:13px}.instrument-viz input{flex:1;accent-color:#6146ad}.instrument-viz p,.instrument-viz small{font-size:12px;line-height:1.5}.evidence-stage{visibility:hidden}.horizon2 .stage2,.horizon3 .stage2,.horizon3 .stage3{visibility:visible}
 .observation-strip{display:grid;grid-template-columns:1fr 1.4fr 1fr;gap:8px;margin:18px 0;font:11px/1.5 var(--mo)}.observation-strip>span{padding:12px 6px;border-top:3px solid #6146ad}.observation-strip .missing{border-top:3px dashed #807789;color:#59535d}
 .archive-shell[hidden],.archive-gate[hidden]{display:none!important}.archive-gate{margin:auto;width:min(480px,90%);padding:32px;background:#e8e1d5;color:#17161b}.archive-gate>span{font:11px var(--mo);color:#6146ad}.archive-gate h1{font-size:26px}.archive-gate p{font-size:14px;line-height:1.5}.archive-gate form{display:grid;gap:12px}.archive-gate input{font:17px var(--mo);padding:12px;background:#f3f0e8;border:1px solid #59535d;color:#17161b}.archive-gate button,#archive-lock{padding:10px;border:1px solid #6146ad;background:transparent;color:#6146ad;cursor:pointer}#archive-lock{margin-top:14px}
-</style><style>.incident-report{scroll-margin-top:20px;margin:42px auto 24px;max-width:800px;padding:26px 28px;background:#f3f0e8;border:1px solid #17161b33;border-top:4px solid #6146ad}.incident-kicker{font:11px var(--mo);color:#6146ad}.incident-report h2{font-size:25px;line-height:1.2;font-weight:500}.incident-deck{font-size:15px;line-height:1.5}.incident-sequence{list-style:none;padding:0;margin:24px 0}.incident-sequence li{display:grid;grid-template-columns:130px 1fr;gap:16px;padding:17px 0;border-top:1px solid #17161b33;font-size:15px;line-height:1.5}.incident-sequence b{font:12px/1.5 var(--mo);color:#6146ad}.incident-limit{border-left:3px solid #9c3027;padding:12px 16px;background:#e8e1d5;font-size:14px;line-height:1.5}@media(max-width:600px){.incident-report{margin:28px 0;padding:20px}.incident-sequence li{grid-template-columns:1fr;gap:4px}}</style><style id="computer-control-state">
-/* A control layer spanning the recorded screen, with the notice above the interface. */
-.app{position:relative;grid-template-rows:48px 70px minmax(0,1fr) 40px}
-.computer-control-banner{
-  min-width:0;display:flex;align-items:center;justify-content:center;
-  position:relative;padding:0 24px;
-  background:linear-gradient(180deg,#12374a 0%,#0b2635 58%,#071923 100%);
-  border-bottom:2px solid #7cddff;color:#ebfaff;
-  box-shadow:inset 0 -8px 24px #56cfff32,0 4px 24px #49c8ff70;
-  font:600 16px/1.25 "Segoe UI",Arial,sans-serif;letter-spacing:0;text-transform:none;
-  text-align:center;white-space:nowrap;overflow:hidden;z-index:20;
-}
-.computer-control-banner .control-dot{
-  position:absolute;left:25px;width:11px;height:11px;border-radius:50%;
-  background:#b4efff;box-shadow:0 0 0 5px #6ed6ff2d,0 0 18px #6ed6ff;
-}
-body:not(.computer-control-active) .app{grid-template-rows:70px minmax(0,1fr) 40px}
-body:not(.computer-control-active) .computer-control-banner{display:none}
-body.computer-control-active .app::before{
-  content:"";position:absolute;inset:0;border:3px solid #8ae4ff;
-  border-radius:inherit;
-  box-shadow:inset 0 0 22px #70d9ffb8,inset 0 0 72px #59ceff5c,
-             0 0 22px #66d5ffb0;
-  pointer-events:none;z-index:21;
-}
-.agent-cursor{
-  position:fixed;left:0;top:0;width:100px;height:100px;
-  transform:translate(-50%,-50%);border-radius:50%;
-  background:radial-gradient(circle,#d5f6ff99 0%,#8be2ff5c 12%,#5bd0ff36 34%,#5bd0ff12 56%,transparent 73%);
-  filter:drop-shadow(0 0 14px #6ed6ffaf);
-  pointer-events:none;z-index:9999;opacity:0;transition:opacity .12s ease;
-}
-.agent-cursor::after{content:"";position:absolute;left:47px;top:47px;width:6px;height:6px;border-radius:50%;background:#ecfbff;box-shadow:0 0 10px #b5edff}
-body.computer-control-active .agent-cursor.is-visible{opacity:1}
-body.computer-control-active,body.computer-control-active *{cursor:default!important}
-@media(max-width:600px){body.computer-control-active .app{grid-template-rows:64px 70px minmax(0,1fr) 40px}.computer-control-banner{padding:0 28px;font-size:14px;line-height:1.3;letter-spacing:0;white-space:normal}.computer-control-banner .control-break{display:block}.computer-control-banner .control-dot{left:14px;top:50%;transform:translateY(-50%);width:8px;height:8px}}
-body.phone-mode.computer-control-active .app{grid-template-rows:64px 70px minmax(0,1fr) 40px}
-body.phone-mode .computer-control-banner{padding:0 28px;font-size:14px;line-height:1.3;letter-spacing:0;white-space:normal}
-body.phone-mode .computer-control-banner .control-break{display:block}
-body.phone-mode .computer-control-banner .control-dot{left:14px;top:50%;transform:translateY(-50%);width:8px;height:8px}
-body.computer-control-active :is(button,a,summary,select,input[type="range"],label[for]){cursor:default!important}
-body.computer-control-active .agent-cursor::after{display:none}
-</style>
+</style><style>.incident-report{scroll-margin-top:20px;margin:42px auto 24px;max-width:800px;padding:26px 28px;background:#f3f0e8;border:1px solid #17161b33;border-top:4px solid #6146ad}.incident-kicker{font:11px var(--mo);color:#6146ad}.incident-report h2{font-size:25px;line-height:1.2;font-weight:500}.incident-deck{font-size:15px;line-height:1.5}.incident-sequence{list-style:none;padding:0;margin:24px 0}.incident-sequence li{display:grid;grid-template-columns:130px 1fr;gap:16px;padding:17px 0;border-top:1px solid #17161b33;font-size:15px;line-height:1.5}.incident-sequence b{font:12px/1.5 var(--mo);color:#6146ad}.incident-limit{border-left:3px solid #9c3027;padding:12px 16px;background:#e8e1d5;font-size:14px;line-height:1.5}@media(max-width:600px){.incident-report{margin:28px 0;padding:20px}.incident-sequence li{grid-template-columns:1fr;gap:4px}}</style>
 <style id="captured-language-experiment">
 /* A captured exchange appears only when Unassigned Commons is selected. */
 .captured-exchange{margin:15px 0 0;padding:12px 13px 13px;border-left:2px solid #8f79de;background:#17161b;color:#f3f0e8}
@@ -280,12 +238,9 @@ body.computer-control-active .agent-cursor::after{display:none}
 .captured-exchange .capture-line{padding:8px 0;color:#f3f0e8;font:13px/1.55 var(--mo);overflow-wrap:anywhere}
 .captured-exchange .capture-line+.capture-line{border-top:1px solid #ffffff30}
 </style>
-<meta name="description" content="Reconstruction of a distributed authorization failure inside HYPERSTITION-9, the NULL Systems synthetic population research interface."><link rel="canonical" href="https://null-object-systems.pages.dev/hyperstition-9/"></head>
-<body class="computer-control-active"><div id="boot-status" role="status" aria-live="polite"><strong>HYPERSTITION-9</strong><span>INITIALIZING PUBLIC INTERFACE</span><i></i></div><div class="app">
-<div class="computer-control-banner" role="status" aria-live="polite">
-  <span class="control-dot" aria-hidden="true"></span>
-  <span class="control-message">This terminal is being <span class="control-break">controlled by a computer</span></span>
-</div>
+<meta name="description" content="Reconstruction of a distributed authorization failure inside HYPERSTITION-9, the NULL Systems synthetic population research interface."><link rel="canonical" href="https://null-object-systems.pages.dev/hyperstition-9/"><link rel="stylesheet" href="/assets/website-responsive.css"><link rel="stylesheet" href="/assets/website-hyperstition-9.css"><script src="/assets/website-access.js" defer></script></head>
+<body data-website-system="hyperstition-9"><nav class="system-return" aria-label="Website navigation"><a href="/">← NULL</a><a href="/systems/hyperstition-9/">System record</a></nav><div id="boot-status" role="status" aria-live="polite"><strong>HYPERSTITION-9</strong><span>INITIALIZING PUBLIC INTERFACE</span><i></i></div><div class="app">
+
 <header class="header"><div class="brand"><strong>HYPERSTITION-9</strong><span>SCE-HS9 · Synthetic population study</span></div><nav class="tabs"><button class="tab active" data-view="field" data-short="FIELD">01 Field</button><button class="tab" data-view="event" data-short="EVENT">02 Event</button><button class="tab" data-view="relations" data-short="RELATIONS">03 Relations</button><button class="tab" data-view="retention" data-short="RETENTION">04 Retention</button><button class="tab" data-view="reentry" data-short="RE-ENTRY">05 Re-entry</button><button class="tab archive-tab" data-view="restricted" data-short="ARCHIVE">Restricted</button></nav><div class="meta"><div class="hm"><small>Unresolved events</small><b class="live"><i class="dot"></i>117</b></div><div class="hm"><small>Acquisition</small><b class="live"><i class="dot"></i>LIVE</b></div></div></header>
 <main class="viewport">
 <section class="view active" id="field"><div class="reading-entry"><span>01 / FIELD</span><div><h2>Synthetic populations under study.</h2><p>Observe behavior, communication, and relations across controlled fields. Consequential events can be reconstructed from the record.</p></div></div><div class="field-v5">
@@ -328,11 +283,11 @@ body.computer-control-active .agent-cursor::after{display:none}
   </article>
  </div>
 </section>
-</main><footer class="footer"><span class="phase" id="phase">01 · Active field</span><div class="progress"><i id="progress"></i></div><span>Offline instrument · R reset · P phone</span><button id="motion" aria-pressed="true">Motion on</button><button id="speed">Preview 6×</button><button id="play">Play</button></footer></div>
+</main></div>
 <script>
 (function(){"use strict";
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)], esc=s=>String(s).replace(/[&<>\"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-const {fieldRows,eventRows,eventCode,eventState,eventTitle,eventDeck,eventMetrics,eventBoundary,eventTimeline,confidence,relationCards,relationCode,retCode,retState,retTitle,retSummary,retFacts,retLoss,retRatio,retRatioText,reCode,reAudit,reTitle,reDesc,reChain,phase,progress,play}=Object.fromEntries(["fieldRows","eventRows","eventCode","eventState","eventTitle","eventDeck","eventMetrics","eventBoundary","eventTimeline","confidence","relationCards","relationCode","retCode","retState","retTitle","retSummary","retFacts","retLoss","retRatio","retRatioText","reCode","reAudit","reTitle","reDesc","reChain","phase","progress","play"].map(id=>[id,document.getElementById(id)]));
+const {fieldRows,eventRows,eventCode,eventState,eventTitle,eventDeck,eventMetrics,eventBoundary,eventTimeline,confidence,relationCards,relationCode,retCode,retState,retTitle,retSummary,retFacts,retLoss,retRatio,retRatioText,reCode,reAudit,reTitle,reDesc,reChain}=Object.fromEntries(["fieldRows","eventRows","eventCode","eventState","eventTitle","eventDeck","eventMetrics","eventBoundary","eventTimeline","confidence","relationCards","relationCode","retCode","retState","retTitle","retSummary","retFacts","retLoss","retRatio","retRatioText","reCode","reAudit","reTitle","reDesc","reChain"].map(id=>[id,document.getElementById(id)]));
 const fields=[
  {id:"FIELD 09",name:"SPATIAL SANDBOX",pop:"47 active / 118 historical",time:"43.8y local",obs:"72%",state:"ACTIVE"},
  {id:"FIELD 04",name:"SPATIAL SANDBOX",pop:"311 active / 2,804 historical",time:"1,904y local",obs:"88%",state:"ACTIVE"},
@@ -384,7 +339,7 @@ function renderRe(){reRows.innerHTML=reentries.map((r,i)=>`<div class="re-row ${
 function showRe(i){let r=reentries[i];reCode.textContent=r.id;reAudit.textContent='causal audit · '+r.u;reTitle.textContent=r.title;reDesc.textContent=r.desc;reChain.innerHTML=r.chain.map((x,j)=>`<div class="chain-row"><b>${String(j+1).padStart(2,'0')}</b><span>${esc(x)}</span></div>`).join('');$$('.re-row').forEach((x,j)=>x.classList.toggle('active',j===i))}
 const worldsEl=document.getElementById('worlds'),reRows=document.getElementById('reentries');renderFields();renderEventList();showEvent(0);renderRelations();renderWorlds();showWorld(0);renderRe();showRe(0);
 eventRows.onclick=e=>{let r=e.target.closest('.row');if(r)showEvent(+r.dataset.i)};worldsEl.onclick=e=>{let r=e.target.closest('.ret-row');if(r)showWorld(+r.dataset.i)};reRows.onclick=e=>{let r=e.target.closest('.re-row');if(r)showRe(+r.dataset.i)};
-function view(id,manual){$$('.view').forEach(v=>v.classList.toggle('active',v.id===id));$$('.tab').forEach(b=>b.classList.toggle('active',b.dataset.view===id));if(manual){pause();phase.textContent='Manual · '+id}}$$('.tab').forEach(b=>b.onclick=()=>view(b.dataset.view,true));
+function view(id){$$('.view').forEach(v=>v.classList.toggle('active',v.id===id));$$('.tab').forEach(b=>b.classList.toggle('active',b.dataset.view===id));const active=document.getElementById(id);if(active)active.scrollTop=0}$$('.tab').forEach(b=>b.onclick=()=>view(b.dataset.view));
 
 // A relation is an inference, with routes to the underlying records.
 const relationRoutes=[{w:0,r:1},{e:2,w:2},{e:2,r:1},{e:3},{w:5,r:2},{e:0,r:0},{e:1},{w:3}];
@@ -423,41 +378,15 @@ document.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.tar
 $$('#eventRows .row,.ret-row,.re-row').forEach(r=>{r.tabIndex=0;r.setAttribute('role','button')});
 showRelation(6);
 
-const seq=[[0,'field','01 · Active field'],[135,'event','02 · Event reconstruction'],[270,'relations','03 · Relational forms'],[405,'retention','04 · Retention register'],[540,'reentry','05 · Re-entry register'],[675,'event','06 · Attribution unresolved']],duration=720;let elapsed=0,speed=1,raf=0,last=0,step=0;const pad=n=>String(n).padStart(2,'0'),fmt=s=>pad(Math.floor(s/60))+':'+pad(Math.floor(s%60));function apply(i){step=i;view(seq[i][1],false);phase.textContent=seq[i][2]}function update(){document.querySelector('#progress').style.width=Math.min(100,elapsed/duration*100)+'%';play.textContent=raf?'Pause '+fmt(elapsed):'Play '+fmt(duration-elapsed)}function frame(t){if(!raf)return;if(!last)last=t;elapsed+=(t-last)/1000*speed;last=t;let active=0;for(let i=seq.length-1;i>=0;i--)if(elapsed>=seq[i][0]){active=i;break}if(active!==step)apply(active);if(elapsed>=duration){elapsed=0;step=-1}update();raf=requestAnimationFrame(frame)}function pause(){if(raf)cancelAnimationFrame(raf);raf=0;last=0;update()}play.onclick=()=>{if(raf)pause();else{last=0;raf=requestAnimationFrame(frame)}};document.getElementById('speed').onclick=function(){speed=speed===1?6:1;this.textContent=speed===1?'Preview 6×':'Normal 1×'};document.onkeydown=e=>{if(e.key.toLowerCase()==='r'){pause();elapsed=0;apply(0)}if(e.key.toLowerCase()==='p')document.body.classList.toggle('phone-mode')};update();
 })();
 </script><script>
 (function(){
- const button=document.getElementById('motion');
  const reduced=matchMedia('(prefers-reduced-motion: reduce)');
- let enabled=!reduced.matches;
- function sync(){document.body.classList.toggle('instrument-motion',enabled);button.textContent=enabled?'Motion on':'Motion off';button.setAttribute('aria-pressed',String(enabled))}
- button.onclick=()=>{enabled=!enabled;sync()};
- reduced.addEventListener('change',()=>{enabled=!reduced.matches;sync()});sync();
+ function sync(){document.body.classList.toggle('instrument-motion',!reduced.matches)}
+ reduced.addEventListener('change',sync);sync();
 })();
 </script><script>
 (()=>{const gate=document.querySelector('.archive-gate'),register=document.querySelector('.archive-shell'),feedback=document.getElementById('archive-feedback'),input=document.getElementById('archive-code');document.getElementById('archive-access').addEventListener('submit',e=>{e.preventDefault();if(input.value.trim().toUpperCase()==='NULL-09'){gate.hidden=true;register.hidden=false;input.value='';feedback.textContent=''}else{feedback.textContent='Access code not recognized.'}});document.getElementById('archive-lock').onclick=()=>{register.hidden=true;gate.hidden=false;input.focus()};const horizon=document.getElementById('graph-horizon');horizon.oninput=()=>{horizon.closest('.instrument-viz').className='instrument-viz horizon'+horizon.value;document.getElementById('graph-reading').textContent=['01 / Observed event and population records.','02 / Reconstruction introduces shared dependencies.','03 / External correspondence. Pathway unresolved.'][Number(horizon.value)-1]}})();
-</script><div class="agent-cursor" id="agentCursor" aria-hidden="true"></div>
-<script id="computer-control-script">
-(() => {
-  const cursor = document.getElementById('agentCursor');
-
-  document.addEventListener('mousemove', event => {
-    if (!document.body.classList.contains('computer-control-active')) return;
-    cursor.style.left = event.clientX + 'px';
-    cursor.style.top = event.clientY + 'px';
-    cursor.classList.add('is-visible');
-  });
-
-  document.addEventListener('mouseleave', () => {
-    cursor.classList.remove('is-visible');
-  });
-
-  document.addEventListener('keydown', event => {
-    if (event.repeat || event.altKey || event.ctrlKey || event.metaKey || event.key.toLowerCase() !== 'g') return;
-    const active = document.body.classList.toggle('computer-control-active');
-    if (!active) cursor.classList.remove('is-visible');
-  });
-})();
 </script>
 <style>#boot-status{position:fixed;inset:0;z-index:99999;display:grid;place-content:center;gap:12px;background:#08080b;color:#f1edf5;text-align:center;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.12em}#boot-status strong{font-size:15px}#boot-status span{color:#8d8994;font-size:9px}#boot-status i{display:block;width:180px;height:2px;margin-top:4px;background:linear-gradient(90deg,#6ed6ff 0 35%,#292830 35%);animation:boot-scan 1.1s steps(5,end) infinite}@keyframes boot-scan{0%{background-size:35% 100%;background-repeat:no-repeat}100%{background-size:100% 100%;background-repeat:no-repeat}}#boot-status.ready{opacity:0;pointer-events:none;transition:opacity .22s ease}</style><script>document.addEventListener('DOMContentLoaded',()=>requestAnimationFrame(()=>requestAnimationFrame(()=>{const boot=document.getElementById('boot-status');boot.classList.add('ready');setTimeout(()=>boot.remove(),260)})))</script>
 </body></html>
