@@ -1,4 +1,6 @@
 (() => {
+  // Avoid launching a background interface on a touch tap or a data-saving connection.
+  if (matchMedia('(hover: none)').matches || navigator.connection?.saveData) return;
   const routes = new Set(['/spectra/', '/pastoral/', '/hyperstition-9/']);
   const links = [...document.querySelectorAll('article a')].filter(link => routes.has(link.getAttribute('href')));
   if (!links.length) return;
